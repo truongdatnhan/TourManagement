@@ -1,0 +1,305 @@
+﻿@using ThuVien.Areas.Manager.ViewModels
+@using Domain.Entities
+@inject Microsoft.AspNetCore.Identity.SignInManager<AppUser> _signInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<AppUser> _userManager
+@model PhieuMuonIndexVm
+@{ ViewData["Title"] = "Danh sách phiếu mượn";
+    Layout = "~/Areas/Manager/Views/Shared/_ManagerLayout.cshtml"; }
+
+@*<button type="submit" class="btn btn-success" data-toggle="modal" data-target="#themPhieuMuon">Thêm phiếu mượn</button>*@
+<div class="modal fade" id="themPhieuMuon" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true" width="100%">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm phiếu mượn</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="PhieuMuon">
+                    <div class="form-group">
+                        <label class="control-label" asp-for="phieumuon.UserId">Mã nhân viên</label>
+                        <input readonly class="form-control" asp-for="phieumuon.UserId" value="@_userManager.GetUserId(User)" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="phieumuon.MaDG">Mã độc giả</label>
+                        <input class="form-control" asp-for="phieumuon.MaDG" placeholder="Mã độc giả">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="phieumuon.NgayMuon">Ngày mượn</label>
+                        <input class="form-control" asp-for="phieumuon.NgayMuon" value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Thêm</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+@{ if (ViewBag.PhieuMuon != 0)
+    {
+        switch (ViewBag.PhieuMuon)
+        {
+            case 1:
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text-success">Thêm phiếu thành công</span>
+                    </div>
+                </div>
+                <hr />
+                break;
+            case 2:
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text-danger">Thêm phiếu thất bại</span>
+                    </div>
+                </div>
+                <hr />
+                break;
+            case 3:
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text-success">Trả phiếu thành công</span>
+                    </div>
+                </div>
+                <hr />
+                break;
+            case 4:
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text-danger">Trả phiếu thất bại hoặc phiếu đã trả</span>
+                    </div>
+                </div>
+                <hr />
+                break;
+            case 5:
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text-success">Thêm chi tiết phiếu thành công</span>
+                    </div>
+                </div>
+                <hr />
+                break;
+            case 6:
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text-danger">Thêm chi tiết phiếu thất bại hoặc sách đang được mượn</span>
+                    </div>
+                </div>
+                <hr />
+                break;
+            case 7:
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text-success">Cập nhật chi tiết phiếu mượn thành công</span>
+                    </div>
+                </div>
+                <hr />
+                break;
+            case 8:
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text-danger">Cập nhật chi tiết phiếu mượn thất bại</span>
+                    </div>
+                </div>
+                <hr />
+                break;
+        }
+    }
+}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách phiếu mượn</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#themPhieuMuon">Thêm phiếu mượn</button>
+                </p>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã phiếu</th>
+                        <th>Mã nhân viên</th>
+                        <th>Mã độc giả</th>
+                        <th>Ngày mượn</th>
+                        <th>Tổng phí mượn</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    <tr />
+                </thead>
+                <tbody>
+                    @foreach (var phieumuon in Model.PhieuMuons)
+                    {
+                        <tr>
+                            <td>@phieumuon.MaPM</td>
+                            <td>@phieumuon.UserId</td>
+                            <td>@phieumuon.MaDG</td>
+                            <td>@phieumuon.NgayMuon.Date.ToString("dd/MM/yyyy")</td>
+                            @{ var trangthai = new String("");
+                                if (phieumuon.TrangThai == 1)
+                                {
+                                    trangthai = "Chưa trả";
+                                }
+                                else
+                                {
+                                    trangthai = "Đã trã";
+                                } }
+                            <td>@phieumuon.TongPhiMuon</td>
+                            <td>@trangthai</td>
+                            <td>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#themCTPM-@phieumuon.MaPM"><i class="far fa-edit"></i></button>
+                                <button class="btn btn-warning" data-toggle="modal" data-target="#chitiet-@phieumuon.MaPM">Chi tiết phiếu</button>
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#xoaPM-@phieumuon.MaPM"><i class="far fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+
+                        <div class="modal fade" role="dialog" id="xoaPM-@phieumuon.MaPM">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Xác nhận xóa</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form asp-area="Manager" asp-action="Update" asp-controller="PhieuMuon" method="POST">
+                                            <!--cái này không nhớ thuộc tính lắm nên coi lại hộ-->
+                                            <input type="hidden" value="@phieumuon.MaPM" asp-for=phieumuon.MaPM />
+                                            <div class="form-group">
+                                                <button class="btn btn-danger" data-dismiss="modal" type="submit">Hủy</button>
+                                                <button class="btn btn-success" type="submit">Xóa phiếu</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" role="dialog" id="themCTPM-@phieumuon.MaPM">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Thêm chi tiết phiếu mượn</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form asp-area="Manager" asp-action="CreateCTPM" asp-controller="PhieuMuon" method="POST">
+                                            <div class="form-group">
+                                                <input type="hidden" placeholder="" asp-for="ctpm.MaPM" value="@phieumuon.MaPM">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" asp-for="ctpm.MaSach">Mã sách</label>
+                                                <input class="form-control" placeholder="" asp-for="ctpm.MaSach">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" asp-for="ctpm.NgayHetHan">Ngày trả</label>
+                                                <input type="date" class="form-control" placeholder="" asp-for="ctpm.NgayHetHan" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" asp-for="ctpm.GiaHan">Ngày gia hạn</label>
+                                                <input type="date" class="form-control" placeholder="" asp-for="ctpm.GiaHan" value="">
+                                            </div>
+                                            <!--cái này không nhớ thuộc tính lắm nên coi lại hộ-->
+
+                                            <div class="modal-footer">
+                                                <button class="btn btn-danger" data-dismiss="modal" type="submit">Hủy</button>
+                                                <button class="btn btn-success" type="submit">Thêm phiếu</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </tbody>
+            </table>
+        </div>
+        @foreach (var phieumuon in Model.PhieuMuons)
+        {
+            <div class="modal fade" role="dialog" id="chitiet-@phieumuon.MaPM">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Xác nhận xóa</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form asp-area="Manager" asp-action="DeleteCTPM" asp-controller="PhieuMuon" method="POST">
+                                <table class="table">
+                                    <thead>
+                                    <th>Mã sách</th>
+                                    <th>Ngày trả</th>
+                                    <th>Ngày gia hạn</th>
+                                    <th>Phí mượn</th>
+                                    <th>
+                                        <button class="btn btn-danger" data-toggle="modal"
+                                                data-target="#xoaCTPM">
+                                            Xóa
+                                        </button>
+                                    </th>
+
+                                    </thead>
+                                    <!--Dây là bát đầu chạy vòng lặp for cho ctpm-->
+                                    <tbody>
+                                        @{ if (phieumuon.ChiTietPhieuMuons != null)
+                                            {
+                                                /*foreach (var ctpm in phieumuon.ChiTietPhieuMuons)
+                                                {
+                                                    <tr>
+                                                        <th><input readonly value="@ctpm.MaSach" asp-for="phieumuon.ChiTietPhieuMuons." style="border:none"/></th>
+                                                        <th><input readonly value="@ctpm.NgayHetHan" asp-for="ctpm.NgayHetHan" style="border:none" /></th>
+                                                        <th><input readonly value="@ctpm.GiaHan" asp-for="ctpm.GiaHan" style="border:none" /></th>
+                                                        <th><input readonly value="@ctpm.PhiMuon" asp-for="ctpm.PhiMuon" style="border:none" /></th>
+                                                        <th><input type="checkbox" asp-for="ctpm.IsSelected" /></th>
+                                                    </tr>
+
+                                                }*/
+
+                                                for (int i = 0; i < phieumuon.ChiTietPhieuMuons.Count(); i++)
+                                                {
+                                                    <tr>
+                                                        <input type="hidden" value="@phieumuon.MaPM" asp-for="phieumuon.ChiTietPhieuMuons[i].MaPM" />
+                                                        <th><input readonly class="form-control" value="@phieumuon.ChiTietPhieuMuons[i].MaSach" asp-for="phieumuon.ChiTietPhieuMuons[i].MaSach" style="border:none" /></th>
+                                                        <th>@phieumuon.ChiTietPhieuMuons[i].NgayHetHan.ToString("dd/MM/yyyy")</th>
+                                                        <th>@phieumuon.ChiTietPhieuMuons[i].GiaHan.ToString("dd/MM/yyyy")</th>
+                                                        <th>@phieumuon.ChiTietPhieuMuons[i].PhiMuon</th>
+                                                        @*<th><input readonly  class="form-control" value="@phieumuon.ChiTietPhieuMuons[i].GiaHan" asp-for="phieumuon.ChiTietPhieuMuons[i].GiaHan" style="border:none" /></th>
+                                                        <th><input readonly class="form-control" value="@phieumuon.ChiTietPhieuMuons[i].PhiMuon" asp-for="phieumuon.ChiTietPhieuMuons[i].PhiMuon" style="border:none" /></th>*@
+                                                        @{ 
+                                                            if(phieumuon.ChiTietPhieuMuons[i].TrangThai == 1)
+                                                            {
+                                                                <th><input class="form-control" type="checkbox" asp-for="phieumuon.ChiTietPhieuMuons[i].IsSelected" /></th>
+                                                            } else
+                                                            {
+                                                                <th><i class="fas fa-check"></i></th>
+                                                            }
+                                                        }
+                                                    </tr>
+                                                }
+                                            } }
+                                    </tbody>
+
+                                </table>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>}
+    </div>
+</div>
