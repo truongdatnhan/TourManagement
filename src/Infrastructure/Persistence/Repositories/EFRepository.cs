@@ -10,9 +10,9 @@ namespace Infrastructure.Persistence.Repositories
 {
     public class EFRepository<T> : IEFRepository<T> where T : class
     {
-        protected readonly QLTVContext context;
+        protected readonly TourContext context;
 
-        public EFRepository(QLTVContext context)
+        public EFRepository(TourContext context)
         {
             this.context = context;
         }

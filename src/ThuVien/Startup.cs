@@ -38,11 +38,11 @@ namespace ThuVien
             }).AddFluentValidation(fv => { fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()); });
 
             services.AddIdentity<AppUser, AppRole>()
-             .AddEntityFrameworkStores<QLTVContext>()
+             .AddEntityFrameworkStores<TourContext>()
              .AddDefaultTokenProviders();
 
-            services.AddDbContextPool<QLTVContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ThuVienDB")));
+            services.AddDbContextPool<TourContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("TourDB")));
 
             //EF
             services.AddScoped(typeof(IEFRepository<>), typeof(EFRepository<>));

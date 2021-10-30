@@ -9,7 +9,7 @@ namespace Infrastructure.Persistence.Repositories
 {
     public class DocGiaRepository : EFRepository<DocGia>, IDocGiaRepository
     {
-        public DocGiaRepository(QLTVContext context) : base(context)
+        public DocGiaRepository(TourContext context) : base(context)
         {
         }
 

@@ -9,7 +9,7 @@ namespace Infrastructure.Persistence.Repositories
 {
     public class ChiTietPhieuMuonRepository : EFRepository<ChiTietPhieuMuon>, IChiTietPhieuMuonRepository
     {
-        public ChiTietPhieuMuonRepository(QLTVContext context) : base(context)
+        public ChiTietPhieuMuonRepository(TourContext context) : base(context)
         {
         }
 

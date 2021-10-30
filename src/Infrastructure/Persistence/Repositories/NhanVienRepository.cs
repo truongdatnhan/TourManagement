@@ -7,7 +7,7 @@ namespace Infrastructure.Persistence.Repositories
 {
     public class NhanVienRepository : EFRepository<AppUser>, INhanVienRepository
     {
-        public NhanVienRepository(QLTVContext context) : base(context)
+        public NhanVienRepository(TourContext context) : base(context)
         {
         }
 

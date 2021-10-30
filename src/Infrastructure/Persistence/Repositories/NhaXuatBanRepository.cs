@@ -9,7 +9,7 @@ namespace Infrastructure.Persistence.Repositories
 {
     public class NhaXuatBanRepository : EFRepository<NhaXuatBan>, INhaXuatBanRepository
     {
-        public NhaXuatBanRepository(QLTVContext context) : base(context)
+        public NhaXuatBanRepository(TourContext context) : base(context)
         {
         }
 

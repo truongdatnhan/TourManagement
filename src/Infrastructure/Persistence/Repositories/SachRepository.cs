@@ -10,7 +10,7 @@ namespace Infrastructure.Persistence.Repositories
 {
     public class SachRepository : EFRepository<Sach>, ISachRepository
     {
-        public SachRepository(QLTVContext context) : base(context)
+        public SachRepository(TourContext context) : base(context)
         {
         }
 

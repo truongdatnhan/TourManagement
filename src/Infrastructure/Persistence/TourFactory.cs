@@ -5,20 +5,20 @@ using System.IO;
 
 namespace Infrastructure.Persistence
 {
-    public class QLTVFactory : IDesignTimeDbContextFactory<QLTVContext>
+    public class TourFactory : IDesignTimeDbContextFactory<TourContext>
     {
-        public QLTVContext CreateDbContext(string[] args)
+        public TourContext CreateDbContext(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")
             .Build();
 
-            var connectionString = configuration.GetConnectionString("ThuVienDB");
-            var optionsBuilder = new DbContextOptionsBuilder<QLTVContext>();
+            var connectionString = configuration.GetConnectionString("TourDB");
+            var optionsBuilder = new DbContextOptionsBuilder<TourContext>();
             optionsBuilder.UseSqlServer(connectionString);
 
-            return new QLTVContext(optionsBuilder.Options);
+            return new TourContext(optionsBuilder.Options);
         }
     }
 }

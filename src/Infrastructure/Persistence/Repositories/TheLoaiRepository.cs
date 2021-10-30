@@ -9,7 +9,7 @@ namespace Infrastructure.Persistence.Repositories
 {
     public class TheLoaiRepository : EFRepository<TheLoai>, ITheLoaiRepository
     {
-        public TheLoaiRepository(QLTVContext context) : base(context)
+        public TheLoaiRepository(TourContext context) : base(context)
         {
         }
 

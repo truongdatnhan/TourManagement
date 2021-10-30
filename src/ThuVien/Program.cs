@@ -14,7 +14,7 @@ namespace ThuVien
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<QLTVContext>();
+                var context = services.GetRequiredService<TourContext>();
             }
 
             host.Run();

@@ -7,7 +7,7 @@ namespace Infrastructure.Persistence.Repositories
 {
     public class TacGiaRepository : EFRepository<TacGia>, ITacGiaRepository
     {
-        public TacGiaRepository(QLTVContext context) : base(context)
+        public TacGiaRepository(TourContext context) : base(context)
         {
         }
 
