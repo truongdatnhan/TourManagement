@@ -9,7 +9,7 @@ namespace Domain.Entities
         public string HoNV { get; set; }
         public string TenNV { get; set; }
         public DateTime DoBNV { get; set; }
-        public List<PhieuMuon> PhieuMuons { get; set; }
-        public List<PhieuPhat> PhieuPhats { get; set; }
+        //public List<PhieuMuon> PhieuMuons { get; set; }
+        //public List<PhieuPhat> PhieuPhats { get; set; }
     }
 }

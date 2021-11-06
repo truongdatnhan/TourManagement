@@ -7,10 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Application.Interfaces;
-using Application.Services;
-using Domain.Interfaces;
-using Infrastructure.Persistence.Repositories;
 using FluentValidation.AspNetCore;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
@@ -44,7 +40,7 @@ namespace ThuVien
             services.AddDbContextPool<TourContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TourDB")));
 
-            //EF
+            /*//EF
             services.AddScoped(typeof(IEFRepository<>), typeof(EFRepository<>));
 
             //TheLoai
@@ -95,7 +91,7 @@ namespace ThuVien
 
             //Sach
             services.AddScoped<ISachRepository, SachRepository>();
-            services.AddScoped<ISachService, SachService>();
+            services.AddScoped<ISachService, SachService>();*/
 
             services.Configure<IdentityOptions>(options =>
             {

@@ -29,6 +29,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Areas\Manager\Controllers\" />
+	  <Folder Include="Areas\Manager\ViewModels\" />
+	  <Folder Include="Controllers\" />
+	  <Folder Include="ViewModels\" />
 	  <Folder Include="wwwroot\sach\" />
 	</ItemGroup>
 </Project>
