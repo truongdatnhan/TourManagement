@@ -1,11 +1,12 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Infrastructure.Persistence
 {
-    public class TourContext : IdentityDbContext<AppUser, AppRole, int>
+    public class TourContext : DbContext
     {
         public TourContext()
         {

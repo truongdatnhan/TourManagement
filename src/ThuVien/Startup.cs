@@ -33,9 +33,9 @@ namespace ThuVien
                 config.Filters.Add(new AuthorizeFilter(policy));
             }).AddFluentValidation(fv => { fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()); });
 
-            services.AddIdentity<AppUser, AppRole>()
+            /*services.AddIdentity<IdentityUser, IdentityRole>()
              .AddEntityFrameworkStores<TourContext>()
-             .AddDefaultTokenProviders();
+             .AddDefaultTokenProviders();*/
 
             services.AddDbContextPool<TourContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TourDB")));
@@ -93,7 +93,8 @@ namespace ThuVien
             services.AddScoped<ISachRepository, SachRepository>();
             services.AddScoped<ISachService, SachService>();*/
 
-            services.Configure<IdentityOptions>(options =>
+            /*Hiện tại không cần vì không còn dùng Identity
+             * services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 0;
@@ -120,7 +121,7 @@ namespace ThuVien
                     policy => policy.RequireClaim("Create Employee", "true"));
                 options.AddPolicy("Edit Employee",
                     policy => policy.RequireClaim("Edit Employee", "true"));
-            });
+            });*/
 
             services.ConfigureApplicationCookie(config =>
             {
@@ -137,8 +138,8 @@ namespace ThuVien
 
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
