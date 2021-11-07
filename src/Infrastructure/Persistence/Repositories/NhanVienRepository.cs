@@ -5,15 +5,15 @@ using System.Linq;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class TacGiaRepository : EFRepository<NhanVien>, INhanVienRepository
+    public class NhanVienRepository : EFRepository<NhanVien>, INhanVienRepository
     {
-        public TacGiaRepository(TourContext context) : base(context)
+        public NhanVienRepository(TourContext context) : base(context)
         {
         }
 
         public IEnumerable<NhanVien> GetNhanViens()
         {
-            List<NhanVien> nv = new List<NhanVien>();
+            List<NhanVien> nv = new ();
             nv = (from t in context.NhanViens select t).ToList();
             nv.Insert(0, new NhanVien { MaNhanVien = 0, TenNhanVien = "Chọn nhân viên" });
             return nv;
@@ -39,19 +39,19 @@ namespace Infrastructure.Persistence.Repositories
         {
             switch (sortOrder)
             {
-                case "manv_desc":
+                case "ma_desc":
                     query = query.OrderByDescending(tg => tg.MaNhanVien);
                     break;
 
-                case "manv":
+                case "ma":
                     query = query.OrderBy(tg => tg.MaNhanVien);
                     break;
 
-                case "tentv_desc":
+                case "ten_desc":
                     query = query.OrderByDescending(nv => nv.TenNhanVien);
                     break;
 
-                case "tentv":
+                case "ten":
                     query = query.OrderBy(nv => nv.TenNhanVien);
                     break;
             }
