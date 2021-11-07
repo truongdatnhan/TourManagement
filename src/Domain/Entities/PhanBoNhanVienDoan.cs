@@ -7,6 +7,6 @@ namespace Domain.Entities
         public int MaNhanVien { get; set; }
         public DoanDuLich Doan { get; set; }
         public int MaDoan { get; set; }
-        public string NhiemVu;
+        public string NhiemVu { get; set; }
     }
 }

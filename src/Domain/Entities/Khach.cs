@@ -1,3 +1,4 @@
+using Domain.Entities.Enum;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace Domain.Entities
         public string DiaChi { get; set; }
         
 	    //có cách nào để đưa vào database nó thành enum "nam", "nữ" không?
-	    public int GioiTinh { get; set; }
+	    public Gender GioiTinh { get; set; }
 
         public string SDT { get; set; }
         public string QuocTich { get; set; }
