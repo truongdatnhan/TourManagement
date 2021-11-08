@@ -52,6 +52,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("MaKhachHang")
                         .HasColumnType("int");
 
+                    b.Property<int>("VaiTro")
+                        .HasColumnType("int");
+
                     b.HasKey("MaDoan", "MaKhachHang");
 
                     b.HasIndex("MaKhachHang");

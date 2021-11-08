@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThuVien", "src\ThuVien\ThuVien.csproj", "{2B9BB10E-62F7-4A23-8003-2AF929369756}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tour", "src\Tour\Tour.csproj", "{2B9BB10E-62F7-4A23-8003-2AF929369756}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Application\Application.csproj", "{4FBB02E0-DB85-4C0F-A039-AC8D8AE7DCC8}"
 EndProject

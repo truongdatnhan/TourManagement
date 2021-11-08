@@ -200,7 +200,8 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     MaDoan = table.Column<int>(type: "int", nullable: false),
-                    MaKhachHang = table.Column<int>(type: "int", nullable: false)
+                    MaKhachHang = table.Column<int>(type: "int", nullable: false),
+                    VaiTro = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

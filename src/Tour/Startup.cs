@@ -11,6 +11,10 @@ using FluentValidation.AspNetCore;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Domain.Interfaces;
+using Infrastructure.Persistence.Repositories;
+using Application.Interfaces;
+using Application.Services;
 
 namespace ThuVien
 {
@@ -40,58 +44,61 @@ namespace ThuVien
             services.AddDbContextPool<TourContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TourDB")));
 
-            /*//EF
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            //EF
             services.AddScoped(typeof(IEFRepository<>), typeof(EFRepository<>));
 
-            //TheLoai
-            services.AddScoped<ITheLoaiRepository, TheLoaiRepository>();
-            services.AddScoped<ITheLoaiService, TheLoaiService>();
+            
+            //ChiPhi
+            services.AddScoped<IChiPhiRepository, ChiPhiRepository>();
+            services.AddScoped<IChiPhiService, ChiPhiService>();
 
-            //Nhanvien
+            //ChiTietDoan
+            services.AddScoped<IChiTietDoanRepository, ChiTietDoanRepository>();
+            //services.AddScoped<INhanVienService, NhanVienService>();
+
+            //DiaDiem
+            services.AddScoped<IDiaDiemRepository, DiaDiemRepository>();
+            //services.AddScoped<ITacGiaService, TacGiaService>();
+
+            //DiemThamQuan
+            services.AddScoped<IDiemThamQuanRepository, DiemThamQuanRepository>();
+            //services.AddScoped<INhaXuatBanService, NhaXuatBanService>();
+
+            //DoanDuLich
+            services.AddScoped<IDoanDuLichRepository, DoanDuLichRepository>();
+            //services.AddScoped<ISachService, SachService>();
+
+            //GiaTour
+            services.AddScoped<IGiaTourRepository, GiaTourRepository>();
+            //services.AddScoped<IAccountService, AccountService>();
+
+            //Khach
+            services.AddScoped<IKhachRepository, KhachRepository>();
+            //services.AddScoped<IDocGiaService, DocGiaService>();
+
+            //LoaiChiPhi
+            services.AddScoped<ILoaiChiPhiRepository, LoaiChiPhiRepository>();
+            //services.AddScoped<IPhieuMuonService, PhieuMuonService>();
+
+            //LoaiHinhDuLich
+            services.AddScoped<ILoaiHinhDuLichRepository, LoaiHinhDuLichRepository>();
+
+            //NhanVien
             services.AddScoped<INhanVienRepository, NhanVienRepository>();
-            services.AddScoped<INhanVienService, NhanVienService>();
+            //services.AddScoped<IPhieuPhatService, PhieuPhatService>();
 
-            //TacGia
-            services.AddScoped<ITacGiaRepository, TacGiaRepository>();
-            services.AddScoped<ITacGiaService, TacGiaService>();
+            //NoiDungTour
+            services.AddScoped<INoiDungTourRepository, NoiDungTourRepository>();
 
-            //NhaXuatBan
-            services.AddScoped<INhaXuatBanRepository, NhaXuatBanRepository>();
-            services.AddScoped<INhaXuatBanService, NhaXuatBanService>();
+            //PhanBoNhanVienDoan
+            services.AddScoped<IPhanBoNhanVienDoanRepository, PhanBoNhanVienDoanRepository>();
+            //services.AddScoped<ITacGiaService, TacGiaService>();
 
-            //Sach
-            services.AddScoped<ISachRepository, SachRepository>();
-            services.AddScoped<ISachService, SachService>();
-
-            //Account
-            services.AddScoped<IAccountRepository, AccountRepository>();
-            services.AddScoped<IAccountService, AccountService>();
-
-            //DocGia
-            services.AddScoped<IDocGiaRepository, DocGiaRepository>();
-            services.AddScoped<IDocGiaService, DocGiaService>();
-
-            //PhieuMuon
-            services.AddScoped<IPhieuMuonRepository, PhieuMuonRepository>();
-            services.AddScoped<IPhieuMuonService, PhieuMuonService>();
-
-            //ChiTietPhieuMuon
-            services.AddScoped<IChiTietPhieuMuonRepository, ChiTietPhieuMuonRepository>();
-
-            //PhieuPhat
-            services.AddScoped<IPhieuPhatRepository, PhieuPhatRepository>();
-            services.AddScoped<IPhieuPhatService, PhieuPhatService>();
-
-            //ChiTietPhieuPhat
-            services.AddScoped<IChiTietPhieuPhatRepository, ChiTietPhieuPhatRepository>();
-
-            //TacGia
-            services.AddScoped<ITacGiaRepository, TacGiaRepository>();
-            services.AddScoped<ITacGiaService, TacGiaService>();
-
-            //Sach
-            services.AddScoped<ISachRepository, SachRepository>();
-            services.AddScoped<ISachService, SachService>();*/
+            //TourDuLich
+            services.AddScoped<ITourDuLichRepository, TourDuLichRepository>();
+            //services.AddScoped<ISachService, SachService>();
 
             /*Hiện tại không cần vì không còn dùng Identity
              * services.Configure<IdentityOptions>(options =>

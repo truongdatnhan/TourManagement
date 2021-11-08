@@ -1,12 +1,10 @@
 using Domain.Entities.Enum;
-using System;
-namespace Domain.Entities
+
+namespace Application.DTOs
 {
-    public class ChiTietDoan
+    public class ChiTietDoanDTO
     {
-        public DoanDuLich Doan { get; set; }
         public int MaDoan { get; set; }
-        public Khach Khach { get; set; }
         public int MaKhachHang { get; set; }
         public VaiTro VaiTro { get; set; }
     }

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace Domain.Entities
+namespace Application.DTOs
 {
-    public class NhanVien
+    public class NhanVienDTO
     {
         public int MaNhanVien { get; set; }
         public string TenNhanVien { get; set; }
-        public ICollection<PhanBoNhanVienDoan> PhanBoNhanVienDoans { get; set; }
     }
 }

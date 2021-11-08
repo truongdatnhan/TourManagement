@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(TourContext))]
-    [Migration("20211107125124_1")]
+    [Migration("20211108055137_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,6 +52,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("MaKhachHang")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VaiTro")
                         .HasColumnType("int");
 
                     b.HasKey("MaDoan", "MaKhachHang");

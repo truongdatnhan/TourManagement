@@ -8,11 +8,6 @@ namespace Infrastructure.Persistence
 {
     public class TourContext : DbContext
     {
-        public TourContext()
-        {
-
-        }
-
         public TourContext(DbContextOptions<TourContext> options) : base(options)
         {
         }
