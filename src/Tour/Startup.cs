@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Infrastructure.Persistence;
+﻿using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +14,7 @@ using Domain.Interfaces;
 using Infrastructure.Persistence.Repositories;
 using Application.Interfaces;
 using Application.Services;
+using System;
 
 namespace ThuVien
 {
@@ -29,13 +29,15 @@ namespace ThuVien
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews(config =>
+            /*services.AddControllersWithViews(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser()
                                  .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
-            }).AddFluentValidation(fv => { fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()); });
+            }).AddFluentValidation(fv => { fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()); });*/
+
+            services.AddControllersWithViews().AddFluentValidation(fv => { fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()); });
 
             /*services.AddIdentity<IdentityUser, IdentityRole>()
              .AddEntityFrameworkStores<TourContext>()
@@ -44,7 +46,8 @@ namespace ThuVien
             services.AddDbContextPool<TourContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TourDB")));
 
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            //services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //EF
             services.AddScoped(typeof(IEFRepository<>), typeof(EFRepository<>));
@@ -87,7 +90,7 @@ namespace ThuVien
 
             //NhanVien
             services.AddScoped<INhanVienRepository, NhanVienRepository>();
-            //services.AddScoped<IPhieuPhatService, PhieuPhatService>();
+            services.AddScoped<INhanVienService, NhanVienService>();
 
             //NoiDungTour
             services.AddScoped<INoiDungTourRepository, NoiDungTourRepository>();

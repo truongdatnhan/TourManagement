@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(TourContext))]
-    [Migration("20211108055137_1")]
+    [Migration("20211108175233_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,6 +77,18 @@ namespace Infrastructure.Migrations
                     b.HasKey("MaDiaDiem");
 
                     b.ToTable("DiaDiem");
+
+                    b.HasData(
+                        new
+                        {
+                            MaDiaDiem = 1,
+                            TenDiaDiem = "Chùa Sài Gòn"
+                        },
+                        new
+                        {
+                            MaDiaDiem = 2,
+                            TenDiaDiem = "Chùa Hà Nội"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.DiemThamQuan", b =>
@@ -180,6 +192,28 @@ namespace Infrastructure.Migrations
                     b.HasKey("MaKhachHang");
 
                     b.ToTable("Khach");
+
+                    b.HasData(
+                        new
+                        {
+                            MaKhachHang = 1,
+                            DiaChi = "Hồ Ly Shiet",
+                            GioiTinh = 0,
+                            HoTen = "Lâm Chấn Thương",
+                            QuocTich = "Việt Nam",
+                            SDT = "0123456789",
+                            SoCMND = "123456789"
+                        },
+                        new
+                        {
+                            MaKhachHang = 2,
+                            DiaChi = "Không Một Ai Biết",
+                            GioiTinh = 0,
+                            HoTen = "Hứa Xong Chuồn",
+                            QuocTich = "Việt Nam",
+                            SDT = "0123456788",
+                            SoCMND = "123456788"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.LoaiChiPhi", b =>
@@ -195,6 +229,18 @@ namespace Infrastructure.Migrations
                     b.HasKey("MaLoaiChiPhi");
 
                     b.ToTable("LoaiChiPhi");
+
+                    b.HasData(
+                        new
+                        {
+                            MaLoaiChiPhi = 1,
+                            TenLoaiChiPhi = "Khách sạn"
+                        },
+                        new
+                        {
+                            MaLoaiChiPhi = 2,
+                            TenLoaiChiPhi = "Luân chuyển"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.LoaiHinhDuLich", b =>
@@ -210,6 +256,18 @@ namespace Infrastructure.Migrations
                     b.HasKey("MaLoaiHinh");
 
                     b.ToTable("LoaiHinhDuLich");
+
+                    b.HasData(
+                        new
+                        {
+                            MaLoaiHinh = 1,
+                            TenLoaiHinh = "Du lịch trong nước"
+                        },
+                        new
+                        {
+                            MaLoaiHinh = 2,
+                            TenLoaiHinh = "Du lịch ngoài nước"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.NhanVien", b =>
@@ -225,6 +283,28 @@ namespace Infrastructure.Migrations
                     b.HasKey("MaNhanVien");
 
                     b.ToTable("NhanVien");
+
+                    b.HasData(
+                        new
+                        {
+                            MaNhanVien = 1,
+                            TenNhanVien = "An"
+                        },
+                        new
+                        {
+                            MaNhanVien = 2,
+                            TenNhanVien = "Đạt"
+                        },
+                        new
+                        {
+                            MaNhanVien = 3,
+                            TenNhanVien = "Nhân"
+                        },
+                        new
+                        {
+                            MaNhanVien = 4,
+                            TenNhanVien = "Lâm"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.NoiDungTour", b =>

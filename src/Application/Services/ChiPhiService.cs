@@ -45,7 +45,7 @@ namespace Application.Services
             chiPhiRepository.Delete(chiPhi);
         }
 
-        public IEnumerable<ChiPhiDTO> GetChiPhiDTOs(string sortOrder, string searchString, int pageIndex, int pageSize, out int count)
+        public IEnumerable<ChiPhiDTO> GetDTOs(string sortOrder, string searchString, int pageIndex, int pageSize, out int count)
         {
             var chiPhis = chiPhiRepository.Filter(sortOrder, searchString, pageIndex, pageSize, out count);
             return mapper.Map<IEnumerable<ChiPhiDTO>>(chiPhis);

@@ -265,6 +265,53 @@ namespace Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "DiaDiem",
+                columns: new[] { "MaDiaDiem", "TenDiaDiem" },
+                values: new object[,]
+                {
+                    { 1, "Chùa Sài Gòn" },
+                    { 2, "Chùa Hà Nội" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Khach",
+                columns: new[] { "MaKhachHang", "DiaChi", "GioiTinh", "HoTen", "QuocTich", "SDT", "SoCMND" },
+                values: new object[,]
+                {
+                    { 1, "Hồ Ly Shiet", 0, "Lâm Chấn Thương", "Việt Nam", "0123456789", "123456789" },
+                    { 2, "Không Một Ai Biết", 0, "Hứa Xong Chuồn", "Việt Nam", "0123456788", "123456788" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "LoaiChiPhi",
+                columns: new[] { "MaLoaiChiPhi", "TenLoaiChiPhi" },
+                values: new object[,]
+                {
+                    { 1, "Khách sạn" },
+                    { 2, "Luân chuyển" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "LoaiHinhDuLich",
+                columns: new[] { "MaLoaiHinh", "TenLoaiHinh" },
+                values: new object[,]
+                {
+                    { 1, "Du lịch trong nước" },
+                    { 2, "Du lịch ngoài nước" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "NhanVien",
+                columns: new[] { "MaNhanVien", "TenNhanVien" },
+                values: new object[,]
+                {
+                    { 1, "An" },
+                    { 2, "Đạt" },
+                    { 3, "Nhân" },
+                    { 4, "Lâm" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ChiPhi_MaDoan",
                 table: "ChiPhi",

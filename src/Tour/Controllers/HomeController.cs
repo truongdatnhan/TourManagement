@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ThuVien.Helper;
 
-namespace ThuVien.Controllers
+namespace Tour.Controllers
 {
-    [AllowAnonymous]
     public class HomeController : Controller
     {
         public IActionResult Index()
