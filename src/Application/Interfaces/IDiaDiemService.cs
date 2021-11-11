@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Application.Interfaces
 {
-    public interface INhanVienService : IService<NhanVienDTO>
+    public interface IDiaDiemService : IService<DiaDiemDTO>
     {
 
     }

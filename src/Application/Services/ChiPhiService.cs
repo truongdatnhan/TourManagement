@@ -20,10 +20,11 @@ namespace Application.Services
             this.mapper = mapper;
         }
 
-        public void Create(ChiPhiDTO chiPhiDTO)
+        public bool Create(ChiPhiDTO chiPhiDTO)
         {
             var chiPhi = mapper.Map<ChiPhi>(chiPhiDTO);
             chiPhiRepository.Add(chiPhi);
+            return true;
         }
 
         public ChiPhiDTO Get(int maCP)
@@ -32,17 +33,19 @@ namespace Application.Services
             return mapper.Map<ChiPhiDTO>(chiPhi);
         }
 
-        public void Update(ChiPhiDTO chiPhiDTO)
+        public bool Update(ChiPhiDTO chiPhiDTO)
         {
             var chiPhi = chiPhiRepository.GetBy(chiPhiDTO.MaChiPhi);
             mapper.Map<ChiPhiDTO, ChiPhi>(chiPhiDTO, chiPhi);
             chiPhiRepository.Update(chiPhi);
+            return true;
         }
 
-        public void Delete(int maCP)
+        public bool Delete(int maCP)
         {
             var chiPhi = chiPhiRepository.GetBy(maCP);
             chiPhiRepository.Delete(chiPhi);
+            return true;
         }
 
         public IEnumerable<ChiPhiDTO> GetDTOs(string sortOrder, string searchString, int pageIndex, int pageSize, out int count)

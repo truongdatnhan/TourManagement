@@ -13,5 +13,6 @@ namespace Application.DTOs
 	    public Gender GioiTinh { get; set; }
         public string SDT { get; set; }
         public string QuocTich { get; set; }
+        public VaiTro VaiTro { get; set; }
     }
 }

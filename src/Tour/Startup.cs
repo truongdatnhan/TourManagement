@@ -71,22 +71,23 @@ namespace ThuVien
 
             //DoanDuLich
             services.AddScoped<IDoanDuLichRepository, DoanDuLichRepository>();
-            //services.AddScoped<ISachService, SachService>();
+            services.AddScoped<IDoanDuLichService, DoanDuLichService>();
 
             //GiaTour
             services.AddScoped<IGiaTourRepository, GiaTourRepository>();
-            //services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IGiaTourService, GiaTourService>();
 
             //Khach
             services.AddScoped<IKhachRepository, KhachRepository>();
-            //services.AddScoped<IDocGiaService, DocGiaService>();
+            services.AddScoped<IKhachService, KhachService>();
 
             //LoaiChiPhi
             services.AddScoped<ILoaiChiPhiRepository, LoaiChiPhiRepository>();
-            //services.AddScoped<IPhieuMuonService, PhieuMuonService>();
+            services.AddScoped<ILoaiChiPhiService, LoaiChiPhiService>();
 
             //LoaiHinhDuLich
             services.AddScoped<ILoaiHinhDuLichRepository, LoaiHinhDuLichRepository>();
+            services.AddScoped<ILoaiHinhDuLichService, LoaiHinhDuLichService>();
 
             //NhanVien
             services.AddScoped<INhanVienRepository, NhanVienRepository>();
@@ -101,7 +102,7 @@ namespace ThuVien
 
             //TourDuLich
             services.AddScoped<ITourDuLichRepository, TourDuLichRepository>();
-            //services.AddScoped<ISachService, SachService>();
+            services.AddScoped<ITourDuLichService, TourDuLichService>();
 
             /*Hiện tại không cần vì không còn dùng Identity
              * services.Configure<IdentityOptions>(options =>
