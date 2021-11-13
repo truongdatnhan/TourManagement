@@ -13,8 +13,9 @@ namespace Infrastructure.Persistence.Repositories
 
         public IEnumerable<ChiPhi> GetChiPhis(int maTour)
         {
-            var cp = (from t in context.DoanDuLiches where t.MaTour == maTour select t.ChiPhis).ToList();
-            return cp;
+            /*var cp = (from t in context.DoanDuLiches where t.MaTour == maTour select t.ChiPhis).ToList();
+            return cp;*/
+            return null;
         }
 
         public IEnumerable<ChiPhi> Filter(string sortOrder, string searchString, int pageIndex, int pageSize, out int count)

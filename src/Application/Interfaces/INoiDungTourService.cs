@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Application.Interfaces
 {
-    public interface IDoanDuLichService : IService<DoanDuLichDTO>
+    public interface INoiDungTourService : IService<NoiDungTourDTO>
     {
-
+        
     }
 }

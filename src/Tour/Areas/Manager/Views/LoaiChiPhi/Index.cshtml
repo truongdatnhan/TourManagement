@@ -1,0 +1,138 @@
+﻿@using ThuVien.Areas.Manager.ViewModels
+@model LoaiChiPhiVM
+
+@{ ViewData["Title"] = "Danh sách nhân viên";
+    Layout = "~/Areas/Manager/Views/Shared/_ManagerLayout.cshtml";
+
+    var honvSort = (Model.SortOrder == "honv") ? "honv_desc" : "tennv";
+    var tennvSort = (Model.SortOrder == "tennv") ? "tennv_desc" : "tennv";
+    var dobnvSort = (Model.SortOrder == "dobnv") ? "dobnv_desc" : "dobnv";
+    var sdtnvSort = (Model.SortOrder == "sdtnv") ? "sdtnv_desc" : "sdtnv";
+    var emailnvSort = (Model.SortOrder == "emailnv") ? "emailnv_desc" : "emailnv"; }
+
+@* Trang nhân viên # Hùng*@
+
+<div class="modal fade" id="themNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm nhân viên</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="LoaiChiPhi">
+                    <div class="form-group">
+                        <label asp-for=LoaiChiPhi.TenLoaiChiPhi>Tên loại chi phí</label>
+                        <input class="form-control" asp-for=LoaiChiPhi.TenLoaiChiPhi placeholder="Tên loại chi phí">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-success">Thêm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách nhân viên</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <p>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themNhanVien">Thêm</button>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <form method="GET">
+                    <div class="input-group">
+                        <input class="form-control" type="text" asp-for="SearchString" />
+                        <div class="input-group-btn">
+                            <button class="btn btn-dark" type="submit">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-route-searchString="@Model.SearchString">
+                                @Html.DisplayNameFor(model => model.LoaiChiPhis[0].MaLoaiChiPhi)
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-route-searchString="@Model.SearchString">
+                                @Html.DisplayNameFor(model => model.LoaiChiPhis[0].TenLoaiChiPhi)
+                            </a>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var lcp in Model.LoaiChiPhis)
+                    {
+                        <tr>
+                            <td>@lcp.MaLoaiChiPhi</td>
+                            <td>@lcp.TenLoaiChiPhi</td>
+                            <td>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#sua-@lcp.MaLoaiChiPhi" a><i class="far fa-edit"></i></button>
+                                <button class="btn btn-outline-dark" data-toggle="modal" data-target="#permission-@lcp.MaLoaiChiPhi" a><i class="fas fa-key"></i></button>
+                            </td>
+                        </tr>
+                        //Sửa NV
+                        <div class="modal fade" id="sua-@lcp.MaLoaiChiPhi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật nhân viên</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="NhanVien">
+                                            <div class="form-group">
+                                                <label asp-for="@lcp.MaLoaiChiPhi">Mã loại chi phí</label>
+                                                <input readonly="readonly" class="form-control" asp-for="@lcp.MaLoaiChiPhi" value="@lcp.MaLoaiChiPhi">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@lcp.TenLoaiChiPhi">Tên nhân viên</label>
+                                                <input class="form-control" asp-for="@lcp.TenLoaiChiPhi" value="@lcp.TenLoaiChiPhi" placeholder="Tên loại chi phí">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                                <button type="submit" class="btn btn-success">Sửa</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@{ var prevDisabled = !Model.LoaiChiPhis.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.LoaiChiPhis.HasNextPage ? "disabled" : ""; }
+
+<a class="btn btn-default @prevDisabled"
+   asp-route-sortOrder="@Model.SortOrder"
+   asp-route-searchString="@Model.SearchString"
+   asp-route-pageIndex="@(Model.LoaiChiPhis.PageIndex -1)">Trước</a>
+<a class="btn btn-default @nextDisabled"
+   asp-route-sortOrder="@Model.SortOrder"
+   asp-route-searchString="@Model.SearchString"
+   asp-route-pageIndex="@(Model.LoaiChiPhis.PageIndex +1)">Sau</a>

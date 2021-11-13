@@ -72,38 +72,7 @@ namespace Application.Services
 
         #endregion
 
-        #region Nội Dung Tour
-
-        public bool CreateNDT(NoiDungTourDTO dto)
-        {
-            var ndt = mapper.Map<NoiDungTour>(dto);
-            noiDungTourRepository.Add(ndt);
-            return true;
-        }
-
-        public NoiDungTourDTO GetNDT(int id)
-        {
-            var ndt = noiDungTourRepository.GetBy(id);
-            return mapper.Map<NoiDungTourDTO>(ndt);
-        }
-
-        public bool UpdateNDT(NoiDungTourDTO dto)
-        {
-            var ndt = noiDungTourRepository.GetBy(dto.MaDoan);
-            mapper.Map<NoiDungTourDTO, NoiDungTour>(dto, ndt);
-            noiDungTourRepository.Update(ndt);
-            return true;
-        }
-
-        public bool DeleteNDT(int id)
-        {
-            var ndt = noiDungTourRepository.GetBy(id);
-            noiDungTourRepository.Delete(ndt);
-            return true;
-        }
-
-        #endregion
-
+        /*
         #region Khách
 
         public IEnumerable<KhachDTO> GetKhach_DTOs(int id)
@@ -116,8 +85,6 @@ namespace Application.Services
                 x.VaiTro = ctds.Where(c => c.MaKhachHang == x.MaKhachHang).FirstOrDefault().VaiTro;
                 return x;
             });
-            
-            return dtos;
         }
 
         #endregion
@@ -141,7 +108,7 @@ namespace Application.Services
         #region Chi Phí
         public IEnumerable<ChiPhiDTO> GetCP_DTOs(int id)
         {
-            var cps = doanDuLichRepository.GetDoans_Eager(id).ChiPhis;
+            var cps = doanDuLichRepository.GetDoan_Eager(id).ChiPhis;
             var lcp = loaiChiPhiRepository.GetAll();
             var cpDTOs = mapper.Map<IEnumerable<ChiPhiDTO>>(cps);
             var dtos = cpDTOs.Select(x =>
@@ -152,5 +119,6 @@ namespace Application.Services
             return dtos;
         }
         #endregion
+        */
     }
 }

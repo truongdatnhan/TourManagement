@@ -14,13 +14,15 @@ namespace Infrastructure.Persistence.Repositories
 
         public IEnumerable<DoanDuLich> GetDoans()
         {
-            List<DoanDuLich> d = new();
-            d = (from t in context.DoanDuLiches select t).ToList();
-            d.Insert(0, new DoanDuLich { MaDoan = 0, TenDoan = "Chọn đoàn" });
-            return d;
+            return context.DoanDuLiches.Include(d => d.ChiTietDoans).Include(c => c.ChiPhis).Include(nv => nv.PhanBoNhanVienDoans).Include(ntd => ntd.NoiDungTour);
         }
 
-        public DoanDuLich GetDoans_Eager(int id)
+        public IEnumerable<DoanDuLich> GetDoans_Eager()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public DoanDuLich GetDoan_Eager(int id)
         {
             var d = context.DoanDuLiches.Where(x => x.MaDoan == id).Include(d => d.ChiTietDoans).Include(c => c.ChiPhis).Include(nv => nv.PhanBoNhanVienDoans).FirstOrDefault();
             return d;
@@ -69,5 +71,6 @@ namespace Infrastructure.Persistence.Repositories
             var c = context.DoanDuLiches.Count();
             return c;
         }
+        
     }
 }

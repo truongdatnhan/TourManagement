@@ -95,6 +95,7 @@ namespace ThuVien
 
             //NoiDungTour
             services.AddScoped<INoiDungTourRepository, NoiDungTourRepository>();
+            services.AddScoped<INoiDungTourService, NoiDungTourService>();
 
             //PhanBoNhanVienDoan
             services.AddScoped<IPhanBoNhanVienDoanRepository, PhanBoNhanVienDoanRepository>();
