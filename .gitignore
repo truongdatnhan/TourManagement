@@ -351,3 +351,4 @@ MigrationBackup/
 
 #Custom ignore fore Database file
 appsettings.json
+Migrations/

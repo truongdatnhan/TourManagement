@@ -11,14 +11,13 @@ namespace Infrastructure.Persistence.Repositories
         {
         }
 
-        public IEnumerable<ChiPhi> GetChiPhis()
+        public IEnumerable<ChiPhi> GetChiPhis(int maTour)
         {
-            List<ChiPhi> cp = new ();
-            cp = (from t in context.ChiPhis select t).ToList();
+            var cp = (from t in context.DoanDuLiches where t.MaTour == maTour select t.ChiPhis).ToList();
             return cp;
         }
 
-       public IEnumerable<ChiPhi> Filter(string sortOrder, string searchString, int pageIndex, int pageSize, out int count)
+        public IEnumerable<ChiPhi> Filter(string sortOrder, string searchString, int pageIndex, int pageSize, out int count)
         {
             var query = context.ChiPhis.AsQueryable();
 

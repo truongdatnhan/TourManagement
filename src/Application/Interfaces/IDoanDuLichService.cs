@@ -10,5 +10,7 @@ namespace Application.Interfaces
         bool UpdateNDT(NoiDungTourDTO dto);
         bool DeleteNDT(int id);
         IEnumerable<KhachDTO> GetKhach_DTOs(int id);
+        IEnumerable<NhanVienDTO> GetNV_DTOs(int id);
+        IEnumerable<ChiPhiDTO> GetCP_DTOs(int id);
     }
 }

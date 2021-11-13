@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,12 @@ namespace Infrastructure.Persistence.Repositories
             List<DoanDuLich> d = new();
             d = (from t in context.DoanDuLiches select t).ToList();
             d.Insert(0, new DoanDuLich { MaDoan = 0, TenDoan = "Chọn đoàn" });
+            return d;
+        }
+
+        public DoanDuLich GetDoans_Eager(int id)
+        {
+            var d = context.DoanDuLiches.Where(x => x.MaDoan == id).Include(d => d.ChiTietDoans).Include(c => c.ChiPhis).Include(nv => nv.PhanBoNhanVienDoans).FirstOrDefault();
             return d;
         }
 

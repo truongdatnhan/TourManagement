@@ -17,15 +17,20 @@ namespace Application.Services
         private readonly INoiDungTourRepository noiDungTourRepository;
         private readonly IKhachRepository khachRepository;
         private readonly IChiTietDoanRepository chiTietDoanRepository;
+        private readonly INhanVienRepository nhanVienRepository;
+        private readonly ILoaiChiPhiRepository loaiChiPhiRepository;
         private readonly IMapper mapper;
 
         public DoanDuLichService(IDoanDuLichRepository doanDuLichRepository,INoiDungTourRepository noiDungTourRepository,
-            IKhachRepository khachRepository,IChiTietDoanRepository chiTietDoanRepository, IMapper mapper)
+            IKhachRepository khachRepository,IChiTietDoanRepository chiTietDoanRepository, 
+            INhanVienRepository nhanVienRepository, ILoaiChiPhiRepository loaiChiPhiRepository ,IMapper mapper)
         {
             this.doanDuLichRepository = doanDuLichRepository;
             this.noiDungTourRepository = noiDungTourRepository;
             this.khachRepository = khachRepository;
             this.chiTietDoanRepository = chiTietDoanRepository;
+            this.nhanVienRepository = nhanVienRepository;
+            this.loaiChiPhiRepository = loaiChiPhiRepository;
             this.mapper = mapper;
         }
 
@@ -103,16 +108,49 @@ namespace Application.Services
 
         public IEnumerable<KhachDTO> GetKhach_DTOs(int id)
         {
-            var ctds = chiTietDoanRepository.GetAll().Where(x => x.MaDoan == id);
+            var ctds = doanDuLichRepository.GetDoans_Eager(id).ChiTietDoans;
             var khachs = khachRepository.GetAll().Where(x => ctds.Any(c => c.MaKhachHang == x.MaKhachHang));
             var khachDTOs = mapper.Map<IEnumerable<KhachDTO>>(khachs).ToList();
-            var dtos = khachDTOs.Select(x => { x.VaiTro = ctds.Where(
-                 c => c.MaKhachHang == x.MaKhachHang).FirstOrDefault().VaiTro; return x;
-            }).ToList();
+            var dtos = khachDTOs.Select(x => 
+            { 
+                x.VaiTro = ctds.Where(c => c.MaKhachHang == x.MaKhachHang).FirstOrDefault().VaiTro;
+                return x;
+            });
             
             return dtos;
         }
 
+        #endregion
+
+        #region Nhân Viên
+        public IEnumerable<NhanVienDTO> GetNV_DTOs(int id)
+        {
+            var pbs = doanDuLichRepository.GetDoans_Eager(id).PhanBoNhanVienDoans;
+            var nvs = nhanVienRepository.GetAll().Where(x => pbs.Any(c => c.MaNhanVien == x.MaNhanVien));
+            var nvDTOs = mapper.Map<IEnumerable<NhanVienDTO>>(nvs);
+            var dtos = nvDTOs.Select(x =>
+            {
+                x.NhiemVu = pbs.Where(nv => nv.MaNhanVien == x.MaNhanVien).FirstOrDefault().NhiemVu;
+                return x;
+            });
+
+            return dtos;
+        }
+        #endregion
+
+        #region Chi Phí
+        public IEnumerable<ChiPhiDTO> GetCP_DTOs(int id)
+        {
+            var cps = doanDuLichRepository.GetDoans_Eager(id).ChiPhis;
+            var lcp = loaiChiPhiRepository.GetAll();
+            var cpDTOs = mapper.Map<IEnumerable<ChiPhiDTO>>(cps);
+            var dtos = cpDTOs.Select(x =>
+            {
+                x.TenLoaiChiPhi = lcp.Where(l => l.MaLoaiChiPhi == x.MaLoaiChiPhi).FirstOrDefault().TenLoaiChiPhi;
+                return x;
+            });
+            return dtos;
+        }
         #endregion
     }
 }

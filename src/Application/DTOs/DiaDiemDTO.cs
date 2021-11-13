@@ -7,5 +7,6 @@ namespace Application.DTOs
     {
         public int MaDiaDiem { get; set; }
         public string TenDiaDiem { get; set; }
+        public int ThuTu { get; set; }
     }
 }

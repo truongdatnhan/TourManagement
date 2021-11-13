@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -23,28 +24,35 @@ namespace Application.Services
 
         public bool Create(DiaDiemDTO dto)
         {
-
-
-            throw new NotImplementedException();
+            var dd = mapper.Map<DiaDiem>(dto);
+            diaDiemRepository.Add(dd);
+            return true;
         }
 
         public DiaDiemDTO Get(int maDD)
         {
-            throw new NotImplementedException();
+            var dd = diaDiemRepository.GetBy(maDD);
+            return mapper.Map<DiaDiemDTO>(dd);
         }
         public bool Update(DiaDiemDTO dto)
         {
-            throw new NotImplementedException();
+            var dd = diaDiemRepository.GetBy(dto.MaDiaDiem);
+            mapper.Map<DiaDiemDTO, DiaDiem>(dto, dd);
+            diaDiemRepository.Update(dd);
+            return true;
         }
 
         public bool Delete(int maDD)
         {
-            throw new NotImplementedException();
+            var dd = diaDiemRepository.GetBy(maDD);
+            diaDiemRepository.Delete(dd);
+            return true;
         }
 
         public IEnumerable<DiaDiemDTO> GetDTOs(string sortOrder, string searchString, int pageIndex, int pageSize, out int count)
         {
-            throw new NotImplementedException();
+            var dds = diaDiemRepository.Filter(sortOrder, searchString, pageIndex, pageSize, out count);
+            return mapper.Map<IEnumerable<DiaDiemDTO>>(dds);
         }
 
     }

@@ -7,5 +7,6 @@ namespace Application.DTOs
         public int MaDoan { get; set; }
         public long SoTien { get; set; }
         public int MaLoaiChiPhi { get; set; }
+        public string TenLoaiChiPhi { get; set; }
     }
 }

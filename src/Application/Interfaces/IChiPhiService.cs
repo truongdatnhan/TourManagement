@@ -5,6 +5,6 @@ namespace Application.Interfaces
 {
     public interface IChiPhiService : IService<ChiPhiDTO>
     {
-
+        IEnumerable<ChiPhiDTO> GetDTOs_Tour(int maTour);
     }
 }

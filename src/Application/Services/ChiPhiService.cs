@@ -53,5 +53,10 @@ namespace Application.Services
             var chiPhis = chiPhiRepository.Filter(sortOrder, searchString, pageIndex, pageSize, out count);
             return mapper.Map<IEnumerable<ChiPhiDTO>>(chiPhis);
         }
+
+        public IEnumerable<ChiPhiDTO> GetDTOs_Tour(int maTour)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
