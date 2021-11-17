@@ -1,6 +1,4 @@
 ﻿using Application.DTOs;
-using Domain.Entities;
-using System.Collections.Generic;
 using ThuVien.Helper;
 
 namespace ThuVien.Areas.Manager.ViewModels

@@ -9,5 +9,6 @@ namespace Application.Interfaces
 {
     public interface ITourDuLichService : IService<TourDuLichDTO>
     {
+        IEnumerable<TourDuLichDTO> GetDTOs();
     }
 }

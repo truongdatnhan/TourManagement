@@ -58,8 +58,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public int CountChiPhi()
         {
-            var c = context.ChiPhis.Count();
-            return c;
+            return context.ChiPhis.Count();
         }
     }
 }

@@ -59,15 +59,15 @@ namespace ThuVien
 
             //ChiTietDoan
             services.AddScoped<IChiTietDoanRepository, ChiTietDoanRepository>();
-            //services.AddScoped<INhanVienService, NhanVienService>();
+            services.AddScoped<IChiTietDoanService, ChiTietDoanService>();
 
             //DiaDiem
             services.AddScoped<IDiaDiemRepository, DiaDiemRepository>();
-            //services.AddScoped<ITacGiaService, TacGiaService>();
+            services.AddScoped<IDiaDiemService, DiaDiemService>();
 
             //DiemThamQuan
             services.AddScoped<IDiemThamQuanRepository, DiemThamQuanRepository>();
-            //services.AddScoped<INhaXuatBanService, NhaXuatBanService>();
+            services.AddScoped<IDiaDiemService, DiaDiemService>();
 
             //DoanDuLich
             services.AddScoped<IDoanDuLichRepository, DoanDuLichRepository>();
@@ -99,7 +99,7 @@ namespace ThuVien
 
             //PhanBoNhanVienDoan
             services.AddScoped<IPhanBoNhanVienDoanRepository, PhanBoNhanVienDoanRepository>();
-            //services.AddScoped<ITacGiaService, TacGiaService>();
+            services.AddScoped<IPhanBoNhanVienDoanService, PhanBoNhanVienDoanService>();
 
             //TourDuLich
             services.AddScoped<ITourDuLichRepository, TourDuLichRepository>();

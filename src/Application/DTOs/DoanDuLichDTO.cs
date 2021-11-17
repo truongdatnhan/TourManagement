@@ -11,6 +11,7 @@ namespace Application.DTOs
         public DateTime NgayKhoiHanh { get; set; }
         public DateTime NgayKetThuc { get; set; }
         public long DoanhThu { get; set; }
+        public NoiDungTourDTO NoiDungTour { get; set; }
         ICollection<KhachDTO> Khaches { get; set; }
         ICollection<ChiPhiDTO> ChiPhis { get; set; }
         ICollection<NhanVienDTO> NhanViens { get; set; }

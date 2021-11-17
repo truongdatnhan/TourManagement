@@ -1,13 +1,9 @@
 ﻿@using ThuVien.Areas.Manager.ViewModels
-@model LoaiChiPhiVM
+@model DoanDuLich_KhachVM
 
-@{ ViewData["Title"] = "Danh sách loại chi phí";
+@{ ViewData["Title"] = "Danh sách đoàn chi tiết khách";
 
-    var honvSort = (Model.SortOrder == "honv") ? "honv_desc" : "tennv";
-    var tennvSort = (Model.SortOrder == "tennv") ? "tennv_desc" : "tennv";
-    var dobnvSort = (Model.SortOrder == "dobnv") ? "dobnv_desc" : "dobnv";
-    var sdtnvSort = (Model.SortOrder == "sdtnv") ? "sdtnv_desc" : "sdtnv";
-    var emailnvSort = (Model.SortOrder == "emailnv") ? "emailnv_desc" : "emailnv"; }
+}
 
 <div class="modal fade" id="themNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -20,11 +16,8 @@
             </div>
 
             <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="LoaiChiPhi">
-                    <div class="form-group">
-                        <label asp-for=LoaiChiPhi.TenLoaiChiPhi>Tên loại chi phí</label>
-                        <input class="form-control" asp-for=LoaiChiPhi.TenLoaiChiPhi placeholder="Tên loại chi phí">
-                    </div>
+                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="DoanDuLich">
+                    
                     <div class="modal-footer">
                         <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
                         <button type="submit" class="btn btn-success">Thêm</button>
@@ -64,48 +57,71 @@
                     <tr>
                         <th>
                             <a asp-route-searchString="@Model.SearchString">
-                                @Html.DisplayNameFor(model => model.LoaiChiPhis[0].MaLoaiChiPhi)
+                                @Html.DisplayNameFor(model => model.Khaches[0].MaKhachHang)
                             </a>
                         </th>
                         <th>
-                            <a asp-route-searchString="@Model.SearchString">
-                                @Html.DisplayNameFor(model => model.LoaiChiPhis[0].TenLoaiChiPhi)
+                            <a>
+                                @Html.DisplayNameFor(model => model.Khaches[0].HoTen)
+                            </a>
+                        </th>
+                        <th>
+                            <a>
+                                @Html.DisplayNameFor(model => model.Khaches[0].SoCMND)
+                            </a>
+                        </th>
+                        <th>
+                            <a>
+                                @Html.DisplayNameFor(model => model.Khaches[0].DiaChi)
+                            </a>
+                        </th>
+                        <th>
+                            <a>
+                                @Html.DisplayNameFor(model => model.Khaches[0].GioiTinh)
+                            </a>
+                        </th>
+                        <th>
+                            <a>
+                                @Html.DisplayNameFor(model => model.Khaches[0].SDT)
+                            </a>
+                        </th>
+                        <th>
+                            <a>
+                                @Html.DisplayNameFor(model => model.Khaches[0].VaiTro)
                             </a>
                         </th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var lcp in Model.LoaiChiPhis)
-                    {
-                        <tr>
-                            <td>@lcp.MaLoaiChiPhi</td>
-                            <td>@lcp.TenLoaiChiPhi</td>
-                            <td>
-                                <button class="btn btn-success" data-toggle="modal" data-target="#sua-@lcp.MaLoaiChiPhi" a><i class="far fa-edit"></i></button>
-                                <button class="btn btn-outline-dark" data-toggle="modal" data-target="#permission-@lcp.MaLoaiChiPhi" a><i class="fas fa-key"></i></button>
-                            </td>
-                        </tr>
-                        //Sửa NV
-                        <div class="modal fade" id="sua-@lcp.MaLoaiChiPhi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               @foreach (var khach in Model.Khaches)
+                {
+                    <tr>
+                        <td>@khach.MaKhachHang</td>
+                        <td>@khach.HoTen</td>
+                        <td>@khach.SoCMND</td>
+                        <td>@khach.DiaChi</td>
+                        <td>@khach.GioiTinh</td>
+                        <td>@khach.SDT</td>
+                        <td>@khach.VaiTro</td>
+                        <td>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@khach.MaKhachHang"><i class="far fa-edit"></i></button>
+                        </td>
+                    </tr>
+                    
+                        //Sửa
+                        <div class="modal fade" id="sua-@khach.MaKhachHang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật nhân viên</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật đoàn</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="NhanVien">
-                                            <div class="form-group">
-                                                <label asp-for="@lcp.MaLoaiChiPhi">Mã loại chi phí</label>
-                                                <input readonly="readonly" class="form-control" asp-for="@lcp.MaLoaiChiPhi" value="@lcp.MaLoaiChiPhi">
-                                            </div>
-                                            <div class="form-group">
-                                                <label asp-for="@lcp.TenLoaiChiPhi">Tên nhân viên</label>
-                                                <input class="form-control" asp-for="@lcp.TenLoaiChiPhi" value="@lcp.TenLoaiChiPhi" placeholder="Tên loại chi phí">
-                                            </div>
+                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DoanDuLich">
+                                            
                                             <div class="modal-footer">
                                                 <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
                                                 <button type="submit" class="btn btn-success">Sửa</button>
@@ -115,21 +131,22 @@
                                 </div>
                             </div>
                         </div>
-                    }
+                    
+                }
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-@{ var prevDisabled = !Model.LoaiChiPhis.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.LoaiChiPhis.HasNextPage ? "disabled" : ""; }
+@{ var prevDisabled = !Model.Khaches.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Khaches.HasNextPage ? "disabled" : ""; }
 
 <a class="btn btn-default @prevDisabled"
    asp-route-sortOrder="@Model.SortOrder"
    asp-route-searchString="@Model.SearchString"
-   asp-route-pageIndex="@(Model.LoaiChiPhis.PageIndex -1)">Trước</a>
+   asp-route-pageIndex="@(Model.Khaches.PageIndex -1)">Trước</a>
 <a class="btn btn-default @nextDisabled"
    asp-route-sortOrder="@Model.SortOrder"
    asp-route-searchString="@Model.SearchString"
-   asp-route-pageIndex="@(Model.LoaiChiPhis.PageIndex +1)">Sau</a>
+   asp-route-pageIndex="@(Model.Khaches.PageIndex +1)">Sau</a>

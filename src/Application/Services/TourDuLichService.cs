@@ -51,7 +51,14 @@ namespace Application.Services
 
         public IEnumerable<TourDuLichDTO> GetDTOs(string sortOrder, string searchString, int pageIndex, int pageSize, out int count)
         {
-            var tours = tourDuLichRepository.Filter(sortOrder, searchString, pageIndex, pageSize, out count);
+            var tours = tourDuLichRepository.Filter(sortOrder, searchString, pageIndex, pageSize,out count);
+            return mapper.Map<IEnumerable<TourDuLichDTO>>(tours);
+        }
+
+        public IEnumerable<TourDuLichDTO> GetDTOs()
+        {
+            var tours = tourDuLichRepository.GetAll().ToList();
+            tours.Insert(0,new TourDuLich { MaTour = 0, TenGoi = "Chọn tour" });
             return mapper.Map<IEnumerable<TourDuLichDTO>>(tours);
         }
     }

@@ -30,7 +30,6 @@ namespace Infrastructure.Persistence.Repositories
 
             SortDiaDiems(sortOrder, ref query);
             count = query.Count();
-
             return query.Skip((pageIndex - 1) * pageSize)
                         .Take(pageSize).ToList();
         }

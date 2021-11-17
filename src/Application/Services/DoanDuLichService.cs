@@ -14,23 +14,11 @@ namespace Application.Services
     public class DoanDuLichService : IDoanDuLichService
     {
         private readonly IDoanDuLichRepository doanDuLichRepository;
-        private readonly INoiDungTourRepository noiDungTourRepository;
-        private readonly IKhachRepository khachRepository;
-        private readonly IChiTietDoanRepository chiTietDoanRepository;
-        private readonly INhanVienRepository nhanVienRepository;
-        private readonly ILoaiChiPhiRepository loaiChiPhiRepository;
         private readonly IMapper mapper;
 
-        public DoanDuLichService(IDoanDuLichRepository doanDuLichRepository,INoiDungTourRepository noiDungTourRepository,
-            IKhachRepository khachRepository,IChiTietDoanRepository chiTietDoanRepository, 
-            INhanVienRepository nhanVienRepository, ILoaiChiPhiRepository loaiChiPhiRepository ,IMapper mapper)
+        public DoanDuLichService(IDoanDuLichRepository doanDuLichRepository ,IMapper mapper)
         {
             this.doanDuLichRepository = doanDuLichRepository;
-            this.noiDungTourRepository = noiDungTourRepository;
-            this.khachRepository = khachRepository;
-            this.chiTietDoanRepository = chiTietDoanRepository;
-            this.nhanVienRepository = nhanVienRepository;
-            this.loaiChiPhiRepository = loaiChiPhiRepository;
             this.mapper = mapper;
         }
 
@@ -68,6 +56,43 @@ namespace Application.Services
         {
             var doans = doanDuLichRepository.Filter(sortOrder, searchString, pageIndex, pageSize, out count);
             return mapper.Map<IEnumerable<DoanDuLichDTO>>(doans);
+        }
+
+        public IEnumerable<KhachDTO> GetKhachsByDoan(int id)
+        {
+            //var doan = doanDuLichRepository.GetBy(id);
+
+            IEnumerable<Khach> list = (from doan in doanDuLichRepository.GetAll() where doan.MaDoan == id
+                        from ctd in doan.ChiTietDoans
+                        from kh in doan.Khaches
+                        where kh.MaKhachHang == ctd.MaKhachHang
+                        select new Khach
+                        {
+                            MaKhachHang = kh.MaKhachHang,
+                            HoTen = kh.HoTen,
+                            SoCMND = kh.SoCMND,
+                            GioiTinh = kh.GioiTinh,
+                            SDT = kh.SDT,
+                            QuocTich = kh.QuocTich,
+                            VaiTro = ctd.VaiTro
+                        }).ToList();
+
+            return mapper.Map<IEnumerable<KhachDTO>>(list);
+        }
+
+        public IEnumerable<NhanVienDTO> GetNVsByDoan(int id)
+        {
+            var doan = doanDuLichRepository.GetBy(id);
+            var list = (from nv in doan.NhanViens
+                        from pbnv in doan.PhanBoNhanVienDoans
+                        where nv.MaNhanVien == pbnv.MaNhanVien
+                        select new NhanVien
+                        {
+                            MaNhanVien = nv.MaNhanVien,
+                            TenNhanVien = nv.TenNhanVien,
+                            NhiemVu = pbnv.NhiemVu
+                        }).ToList();
+            return mapper.Map<IEnumerable<NhanVienDTO>>(list);
         }
 
         #endregion

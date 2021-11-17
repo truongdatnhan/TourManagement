@@ -12,9 +12,19 @@ namespace Infrastructure.Persistence.Repositories
         {
         }
 
+        public override IEnumerable<DoanDuLich> GetAll()
+        {
+            /*context.DoanDuLiches.ToList().ForEach(x => {
+                x.TenTour = x.Tour.TenGoi; 
+            });*/
+
+            return context.DoanDuLiches.Include(d => d.ChiTietDoans).Include(c => c.ChiPhis).Include(nv => nv.PhanBoNhanVienDoans)
+                .Include(ntd => ntd.NoiDungTour).Include(t => t.Tour).Include(k => k.Khaches).Include(nv => nv.NhanViens).ToList();
+        }
+
         public IEnumerable<DoanDuLich> GetDoans()
         {
-            return context.DoanDuLiches.Include(d => d.ChiTietDoans).Include(c => c.ChiPhis).Include(nv => nv.PhanBoNhanVienDoans).Include(ntd => ntd.NoiDungTour);
+            return context.DoanDuLiches.Include(d => d.ChiTietDoans).Include(c => c.ChiPhis).Include(nv => nv.PhanBoNhanVienDoans).Include(ntd => ntd.NoiDungTour).Include(t => t.Tour).ToList();
         }
 
         public IEnumerable<DoanDuLich> GetDoans_Eager()

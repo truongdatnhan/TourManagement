@@ -50,9 +50,9 @@ namespace Application.Services
             return true;
         }
 
-        public IEnumerable<LoaiChiPhiDTO> GetDTOs(string sortOrder, string searchString, int pageIndex, int pageSize, out int count)
+        public IEnumerable<LoaiChiPhiDTO> GetDTOs(string sortOrder, string searchString, int pageIndex, int pageSize,out int count)
         {
-            var lcps = loaiChiPhiRepository.Filter(sortOrder, searchString, pageIndex, pageSize, out count);
+            var lcps = loaiChiPhiRepository.Filter(sortOrder, searchString, pageIndex, pageSize,out count);
             return mapper.Map<IEnumerable<LoaiChiPhiDTO>>(lcps);
         }
     }

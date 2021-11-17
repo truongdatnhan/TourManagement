@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface IChiTietDoanService
+    public interface IDiemThamQuanService 
     {
-        IEnumerable<ChiTietDoanDTO> GetAll();
-        bool Create(ChiTietDoanDTO dto);
-        ChiTietDoanDTO Get(int id);
-        bool Update(ChiTietDoanDTO dto);
+        IEnumerable<DiemThamQuanDTO> GetAll();
+        bool Create(DiemThamQuanDTO dto);
+        DiemThamQuanDTO Get(int id);
+        bool Update(DiemThamQuanDTO dto);
         bool Delete(int id);
     }
 }
