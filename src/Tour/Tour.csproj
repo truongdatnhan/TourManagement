@@ -32,8 +32,6 @@
 	<ItemGroup>
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="wwwroot\sach\" />
-	  <Folder Include="Areas\Manager\Views\LoaiHinhDuLich\" />
-	  <Folder Include="Areas\Manager\Views\Khach\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Areas\Manager\Views\NhanVien %28copy%29\" />

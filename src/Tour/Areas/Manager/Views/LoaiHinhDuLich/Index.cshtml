@@ -1,9 +1,13 @@
 ﻿@using ThuVien.Areas.Manager.ViewModels
-@model DoanDuLich_KhachVM
+@model LoaiHinhDuLichVM
 
-@{ ViewData["Title"] = "Danh sách chi tiết khách đoàn";
+@{ ViewData["Title"] = "Danh sách loại hình du lịch";
 
-}
+    var honvSort = (Model.SortOrder == "honv") ? "honv_desc" : "tennv";
+    var tennvSort = (Model.SortOrder == "tennv") ? "tennv_desc" : "tennv";
+    var dobnvSort = (Model.SortOrder == "dobnv") ? "dobnv_desc" : "dobnv";
+    var sdtnvSort = (Model.SortOrder == "sdtnv") ? "sdtnv_desc" : "sdtnv";
+    var emailnvSort = (Model.SortOrder == "emailnv") ? "emailnv_desc" : "emailnv"; }
 
 <div class="modal fade" id="themNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -16,7 +20,7 @@
             </div>
 
             <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="DoanDuLich">
+                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="LoaiChiPhi">
                     
                     <div class="modal-footer">
                         <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
@@ -57,70 +61,40 @@
                     <tr>
                         <th>
                             <a asp-route-searchString="@Model.SearchString">
-                                @Html.DisplayNameFor(model => model.Khaches[0].MaKhachHang)
+                                @Html.DisplayNameFor(model => model.LoaiHinhDuLichs[0].MaLoaiHinh)
                             </a>
                         </th>
                         <th>
-                            <a>
-                                @Html.DisplayNameFor(model => model.Khaches[0].HoTen)
-                            </a>
-                        </th>
-                        <th>
-                            <a>
-                                @Html.DisplayNameFor(model => model.Khaches[0].SoCMND)
-                            </a>
-                        </th>
-                        <th>
-                            <a>
-                                @Html.DisplayNameFor(model => model.Khaches[0].DiaChi)
-                            </a>
-                        </th>
-                        <th>
-                            <a>
-                                @Html.DisplayNameFor(model => model.Khaches[0].GioiTinh)
-                            </a>
-                        </th>
-                        <th>
-                            <a>
-                                @Html.DisplayNameFor(model => model.Khaches[0].SDT)
-                            </a>
-                        </th>
-                        <th>
-                            <a>
-                                @Html.DisplayNameFor(model => model.Khaches[0].VaiTro)
+                            <a asp-route-searchString="@Model.SearchString">
+                                @Html.DisplayNameFor(model => model.LoaiHinhDuLichs[0].TenLoaiHinh)
                             </a>
                         </th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-               @foreach (var khach in Model.Khaches)
-                {
+                    @foreach (var lh in Model.LoaiHinhDuLichs)
+                    {
                     <tr>
-                        <td>@khach.MaKhachHang</td>
-                        <td>@khach.HoTen</td>
-                        <td>@khach.SoCMND</td>
-                        <td>@khach.DiaChi</td>
-                        <td>@khach.GioiTinh</td>
-                        <td>@khach.SDT</td>
-                        <td>@khach.VaiTro</td>
+                        <td>@lh.MaLoaiHinh</td>
+                        <td>@lh.TenLoaiHinh</td>
                         <td>
-                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@khach.MaKhachHang"><i class="far fa-edit"></i></button>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@lh.MaLoaiHinh" a><i class="far fa-edit"></i></button>
+                            <button class="btn btn-outline-dark" data-toggle="modal" data-target="#permission-@lh.MaLoaiHinh" a><i class="fas fa-key"></i></button>
                         </td>
                     </tr>
-                    
-                        //Sửa
-                        <div class="modal fade" id="sua-@khach.MaKhachHang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        //Sửa NV
+                        <div class="modal fade" id="sua-@lh.MaLoaiHinh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật đoàn</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật nhân viên</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DoanDuLich">
+                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="NhanVien">
                                             
                                             <div class="modal-footer">
                                                 <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
@@ -131,22 +105,21 @@
                                 </div>
                             </div>
                         </div>
-                    
-                }
+                    }
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-@{ var prevDisabled = !Model.Khaches.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.Khaches.HasNextPage ? "disabled" : ""; }
+@{ var prevDisabled = !Model.LoaiHinhDuLichs.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.LoaiHinhDuLichs.HasNextPage ? "disabled" : ""; }
 
 <a class="btn btn-default @prevDisabled"
    asp-route-sortOrder="@Model.SortOrder"
    asp-route-searchString="@Model.SearchString"
-   asp-route-pageIndex="@(Model.Khaches.PageIndex -1)">Trước</a>
+   asp-route-pageIndex="@(Model.LoaiHinhDuLichs.PageIndex -1)">Trước</a>
 <a class="btn btn-default @nextDisabled"
    asp-route-sortOrder="@Model.SortOrder"
    asp-route-searchString="@Model.SearchString"
-   asp-route-pageIndex="@(Model.Khaches.PageIndex +1)">Sau</a>
+   asp-route-pageIndex="@(Model.LoaiHinhDuLichs.PageIndex +1)">Sau</a>

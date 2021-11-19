@@ -60,39 +60,17 @@ namespace Application.Services
 
         public IEnumerable<KhachDTO> GetKhachsByDoan(int id)
         {
-            //var doan = doanDuLichRepository.GetBy(id);
-
-            IEnumerable<Khach> list = (from doan in doanDuLichRepository.GetAll() where doan.MaDoan == id
-                        from ctd in doan.ChiTietDoans
-                        from kh in doan.Khaches
-                        where kh.MaKhachHang == ctd.MaKhachHang
-                        select new Khach
-                        {
-                            MaKhachHang = kh.MaKhachHang,
-                            HoTen = kh.HoTen,
-                            SoCMND = kh.SoCMND,
-                            GioiTinh = kh.GioiTinh,
-                            SDT = kh.SDT,
-                            QuocTich = kh.QuocTich,
-                            VaiTro = ctd.VaiTro
-                        }).ToList();
-
-            return mapper.Map<IEnumerable<KhachDTO>>(list);
+            return mapper.Map<IEnumerable<KhachDTO>>(doanDuLichRepository.GetKhachsByDoan(id));
         }
 
         public IEnumerable<NhanVienDTO> GetNVsByDoan(int id)
         {
-            var doan = doanDuLichRepository.GetBy(id);
-            var list = (from nv in doan.NhanViens
-                        from pbnv in doan.PhanBoNhanVienDoans
-                        where nv.MaNhanVien == pbnv.MaNhanVien
-                        select new NhanVien
-                        {
-                            MaNhanVien = nv.MaNhanVien,
-                            TenNhanVien = nv.TenNhanVien,
-                            NhiemVu = pbnv.NhiemVu
-                        }).ToList();
-            return mapper.Map<IEnumerable<NhanVienDTO>>(list);
+            return mapper.Map<IEnumerable<NhanVienDTO>>(doanDuLichRepository.GetNVsByDoan(id));
+        }
+
+        public IEnumerable<ChiPhiDTO> GetCPsByDoan(int id)
+        {
+            return mapper.Map<IEnumerable<ChiPhiDTO>>(doanDuLichRepository.GetCPsByDoan(id));
         }
 
         #endregion

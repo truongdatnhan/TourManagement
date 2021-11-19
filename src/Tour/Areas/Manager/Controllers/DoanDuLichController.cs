@@ -47,20 +47,54 @@ namespace Tour.Areas.Manager.Controllers
             switch (list) 
             {
                 case "khachhang":
-                    int pageSize = 8;
-                    int pageIndex = 1;
-                    var dsDoan_Khach = doanDuLichService.GetKhachsByDoan(Int32.Parse(maDoan));
-                    int count = dsDoan_Khach.Count();
-                    var kh = new KhachDTO();
-                    var VM = new DoanDuLich_KhachVM()
                     {
-                        Khaches = new PaginatedList<KhachDTO>(dsDoan_Khach, count, pageIndex, pageSize),
-                        SearchString = null,
-                        SortOrder = null,
-                        Khach = kh
-                    };
-                    ViewBag.tour = tourDuLichService.GetDTOs();
-                    return View("Index_Khach",VM);
+                        int pageSize = 8;
+                        int pageIndex = 1;
+                        var dsDoan_Khach = doanDuLichService.GetKhachsByDoan(Int32.Parse(maDoan));
+                        int count = dsDoan_Khach.Count();
+                        var kh = new KhachDTO();
+                        var VM = new DoanDuLich_KhachVM()
+                        {
+                            Khaches = new PaginatedList<KhachDTO>(dsDoan_Khach, count, pageIndex, pageSize),
+                            SearchString = null,
+                            SortOrder = null,
+                            Khach = kh
+                        };
+                        ViewBag.tour = tourDuLichService.GetDTOs();
+                        return View("Index_Khach", VM);
+                    }
+                case "nhanvien":
+                    {
+                        int pageSize = 8;
+                        int pageIndex = 1;
+                        var dsDoan_NV = doanDuLichService.GetNVsByDoan(Int32.Parse(maDoan));
+                        int count = dsDoan_NV.Count();
+                        var nv = new NhanVienDTO();
+                        var VM = new DoanDuLich_NhanVienVM()
+                        {
+                            NhanViens = new PaginatedList<NhanVienDTO>(dsDoan_NV, count, pageIndex, pageSize),
+                            SearchString = null,
+                            SortOrder = null,
+                            NhanVien = nv
+                        };
+                        return View("Index_NhanVien", VM);
+                    }
+                case "chiphi":
+                    {
+                        int pageSize = 8;
+                        int pageIndex = 1;
+                        var dsDoan_CP = doanDuLichService.GetCPsByDoan(Int32.Parse(maDoan));
+                        int count = dsDoan_CP.Count();
+                        var cp = new ChiPhiDTO();
+                        var VM = new DoanDuLich_ChiPhiVM()
+                        {
+                            ChiPhis = new PaginatedList<ChiPhiDTO>(dsDoan_CP, count, pageIndex, pageSize),
+                            SearchString = null,
+                            SortOrder = null,
+                            ChiPhi = cp
+                        };
+                        return View("Index_ChiPhi", VM);
+                    }
                 default:
                     return RedirectToAction("Index");
 
