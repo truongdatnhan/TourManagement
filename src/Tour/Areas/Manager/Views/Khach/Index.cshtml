@@ -1,7 +1,8 @@
-﻿@using ThuVien.Areas.Manager.ViewModels
+@using ThuVien.Areas.Manager.ViewModels
 @model KhachVM
 
 @{ ViewData["Title"] = "Danh sách khách hàng";
+    Layout = "~/Areas/Manager/Views/Shared/_ManagerLayout.cshtml";
 
     var honvSort = (Model.SortOrder == "honv") ? "honv_desc" : "tennv";
     var tennvSort = (Model.SortOrder == "tennv") ? "tennv_desc" : "tennv";
@@ -9,19 +10,47 @@
     var sdtnvSort = (Model.SortOrder == "sdtnv") ? "sdtnv_desc" : "sdtnv";
     var emailnvSort = (Model.SortOrder == "emailnv") ? "emailnv_desc" : "emailnv"; }
 
-<div class="modal fade" id="themNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@* Trang khách hàng # An*@
+
+<div class="modal fade" id="themKhach" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm nhân viên</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Thêm khách hàng</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
 
             <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="LoaiChiPhi">
-                    
+                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="Khach">
+
+                    <div class="form-group">
+                        <label asp-for=Khach.HoTen>Họ Tên Khách Hàng</label>
+                        <input class="form-control" asp-for=Khach.HoTen placeholder="Họ Tên Khách Hàng">
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Khach.SoCMND">CMND</label>
+                        <input type="number" class="form-control" asp-for="Khach.SoCMND" value="Khach.SoCMND" placeholder="Số CMND">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Khach.DiaChi">Địa Chỉ</label>
+                        <input class="form-control" asp-for="Khach.DiaChi"  placeholder="Địa Chỉ">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Khach.GioiTinh">Giới Tính</label>
+                        <input class="form-control" asp-for="Khach.GioiTinh" placeholder="Giới Tính">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Khach.SDT">SĐT</label>
+                        <input class="form-control" asp-for="Khach.SDT"  placeholder="Số điện thoại">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Khach.QuocTich">Quốc Tịch</label>
+                        <input class="form-control" asp-for="Khach.QuocTich"  placeholder="Quốc Tịch">
+                    </div>
+
                     <div class="modal-footer">
                         <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
                         <button type="submit" class="btn btn-success">Thêm</button>
@@ -35,13 +64,13 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách nhân viên</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách khách hàng</h6>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themNhanVien">Thêm</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themKhach">Thêm</button>
                 </p>
             </div>
             <div class="col-md-4">
@@ -98,34 +127,60 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var kh in Model.Khachs)
+                    @foreach (var khach in Model.Khachs)
                     {
                     <tr>
-                        <td>@kh.MaKhachHang</td>
-                        <td>@kh.HoTen</td>
-                        <td>@kh.SoCMND</td>
-                        <td>@kh.DiaChi</td>
-                        <td>@kh.GioiTinh</td>
-                        <td>@kh.SDT</td>
-                        <td>@kh.QuocTich</td>
+                        <td>@khach.MaKhachHang</td>
+                        <td>@khach.HoTen</td>
+                        <td>@khach.SoCMND</td>
+                        <td>@khach.DiaChi</td>
+                        <td>@khach.GioiTinh</td>
+                        <td>@khach.SDT</td>
+                        <td>@khach.QuocTich</td>
                         <td>
-                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@kh.MaKhachHang" a><i class="far fa-edit"></i></button>
-                            <button class="btn btn-outline-dark" data-toggle="modal" data-target="#permission-@kh.MaKhachHang" a><i class="fas fa-key"></i></button>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@khach.MaKhachHang" a><i class="far fa-edit"></i></button>
                         </td>
                     </tr>
                         //Sửa NV
-                        <div class="modal fade" id="sua-@kh.MaKhachHang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="sua-@khach.MaKhachHang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật nhân viên</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật khách hàng</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="NhanVien">
-                                            
+                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="Khach">
+                                            <div class="form-group">
+                                                <label asp-for="@khach.MaKhachHang">Mã khách hàng</label>
+                                                <input readonly="readonly" class="form-control" asp-for="@khach.MaKhachHang" value="@khach.MaKhachHang">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@khach.HoTen">Họ & Tên</label>
+                                                <input class="form-control" asp-for="@khach.HoTen" value="@khach.HoTen" placeholder="Tên khách hàng">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@khach.SoCMND">CMND</label>
+                                                <input type="number" class="form-control" asp-for="@khach.SoCMND" value="@khach.SoCMND" placeholder="Số CMND">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@khach.DiaChi">Địa Chỉ</label>
+                                                <input class="form-control" asp-for="@khach.DiaChi" value="@khach.DiaChi" placeholder="Địa Chỉ">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@khach.GioiTinh">Giới Tính</label>
+                                                <input class="form-control" asp-for="@khach.GioiTinh" value="@khach.GioiTinh" placeholder="Giới Tính">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@khach.SDT">SĐT</label>
+                                                <input class="form-control" asp-for="@khach.SDT" value="@khach.SDT" placeholder="Số điện thoại">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@khach.QuocTich">Quốc Tịch</label>
+                                                <input class="form-control" asp-for="@khach.QuocTich" value="@khach.QuocTich" placeholder="Quốc Tịch">
+                                            </div>
                                             <div class="modal-footer">
                                                 <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
                                                 <button type="submit" class="btn btn-success">Sửa</button>
