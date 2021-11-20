@@ -1,7 +1,8 @@
-﻿@using ThuVien.Areas.Manager.ViewModels
+@using ThuVien.Areas.Manager.ViewModels
 @model LoaiHinhDuLichVM
 
 @{ ViewData["Title"] = "Danh sách loại hình du lịch";
+    Layout = "~/Areas/Manager/Views/Shared/_ManagerLayout.cshtml";
 
     var honvSort = (Model.SortOrder == "honv") ? "honv_desc" : "tennv";
     var tennvSort = (Model.SortOrder == "tennv") ? "tennv_desc" : "tennv";
@@ -9,19 +10,25 @@
     var sdtnvSort = (Model.SortOrder == "sdtnv") ? "sdtnv_desc" : "sdtnv";
     var emailnvSort = (Model.SortOrder == "emailnv") ? "emailnv_desc" : "emailnv"; }
 
-<div class="modal fade" id="themNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@* Trang loại hình du lịch # An*@
+
+<div class="modal fade" id="themLoaiHinhDuLich" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm nhân viên</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Thêm loại hình du lịch</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
 
             <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="LoaiChiPhi">
-                    
+                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="LoaiHinhDuLich">
+
+                    <div class="form-group">
+                        <label asp-for=LoaiHinhDuLich.TenLoaiHinh>Tên loại hình du lịch</label>
+                        <input class="form-control" asp-for=LoaiHinhDuLich.TenLoaiHinh placeholder="Tên loại hình du lịch">
+                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
                         <button type="submit" class="btn btn-success">Thêm</button>
@@ -35,13 +42,13 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách nhân viên</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách loại hình du lịch</h6>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themNhanVien">Thêm</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themLoaiHinhDuLich">Thêm</button>
                 </p>
             </div>
             <div class="col-md-4">
@@ -73,29 +80,36 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var lh in Model.LoaiHinhDuLichs)
+                    @foreach (var lhdl in Model.LoaiHinhDuLichs)
                     {
-                    <tr>
-                        <td>@lh.MaLoaiHinh</td>
-                        <td>@lh.TenLoaiHinh</td>
-                        <td>
-                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@lh.MaLoaiHinh" a><i class="far fa-edit"></i></button>
-                            <button class="btn btn-outline-dark" data-toggle="modal" data-target="#permission-@lh.MaLoaiHinh" a><i class="fas fa-key"></i></button>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@lhdl.MaLoaiHinh</td>
+                            <td>@lhdl.TenLoaiHinh</td>
+                            <td>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#sua-@lhdl.MaLoaiHinh" a><i class="far fa-edit"></i></button>
+                                <button class="btn btn-outline-dark" data-toggle="modal" data-target="#permission-@lhdl.MaLoaiHinh" a><i class="fas fa-key"></i></button>
+                            </td>
+                        </tr>
                         //Sửa NV
-                        <div class="modal fade" id="sua-@lh.MaLoaiHinh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="sua-@lhdl.MaLoaiHinh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật nhân viên</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật Loại Hình Du Lịch</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="NhanVien">
-                                            
+                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="LoaiHinhDuLich">
+                                            <div class="form-group">
+                                                <label asp-for="@lhdl.MaLoaiHinh">Mã Loại Hình Du Lịch</label>
+                                                <input readonly="readonly" class="form-control" asp-for="@lhdl.MaLoaiHinh" value="@lhdl.MaLoaiHinh">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@lhdl.TenLoaiHinh">Tên loại hình du lịch</label>
+                                                <input class="form-control" asp-for="@lhdl.TenLoaiHinh" value="@lhdl.TenLoaiHinh" placeholder="Tên loại hình du lịch">
+                                            </div>
                                             <div class="modal-footer">
                                                 <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
                                                 <button type="submit" class="btn btn-success">Sửa</button>
