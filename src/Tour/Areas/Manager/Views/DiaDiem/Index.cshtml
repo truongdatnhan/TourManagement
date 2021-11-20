@@ -1,7 +1,8 @@
-﻿@using ThuVien.Areas.Manager.ViewModels
+@using ThuVien.Areas.Manager.ViewModels
 @model DiaDiemVM
 
 @{ ViewData["Title"] = "Danh sách địa điểm";
+    Layout = "~/Areas/Manager/Views/Shared/_ManagerLayout.cshtml";
 
     var honvSort = (Model.SortOrder == "honv") ? "honv_desc" : "tennv";
     var tennvSort = (Model.SortOrder == "tennv") ? "tennv_desc" : "tennv";
@@ -9,19 +10,25 @@
     var sdtnvSort = (Model.SortOrder == "sdtnv") ? "sdtnv_desc" : "sdtnv";
     var emailnvSort = (Model.SortOrder == "emailnv") ? "emailnv_desc" : "emailnv"; }
 
-<div class="modal fade" id="themNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@* Trang địa điểm # An*@
+
+<div class="modal fade" id="themDiaDiem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm nhân viên</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Thêm địa điểm</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
 
             <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="LoaiChiPhi">
-                    
+                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="DiaDiem">
+
+                    <div class="form-group">
+                        <label asp-for=DiaDiem.TenDiaDiem>Tên địa điểm</label>
+                        <input class="form-control" asp-for=DiaDiem.TenDiaDiem placeholder="Tên địa điểm">
+                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
                         <button type="submit" class="btn btn-success">Thêm</button>
@@ -35,13 +42,13 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách nhân viên</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách địa điểm</h6>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themNhanVien">Thêm</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themDiaDiem">Thêm</button>
                 </p>
             </div>
             <div class="col-md-4">
@@ -73,29 +80,36 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var dd in Model.DiaDiems)
+                    @foreach (var diaDiem in Model.DiaDiems)
                     {
-                    <tr>
-                        <td>@dd.MaDiaDiem</td>
-                        <td>@dd.TenDiaDiem</td>
-                        <td>
-                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@dd.MaDiaDiem" a><i class="far fa-edit"></i></button>
-                            <button class="btn btn-outline-dark" data-toggle="modal" data-target="#permission-@dd.MaDiaDiem" a><i class="fas fa-key"></i></button>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@diaDiem.MaDiaDiem</td>
+                            <td>@diaDiem.TenDiaDiem</td>
+                            <td>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#sua-@diaDiem.MaDiaDiem" a><i class="far fa-edit"></i></button>
+                                <button class="btn btn-outline-dark" data-toggle="modal" data-target="#permission-@diaDiem.MaDiaDiem" a><i class="fas fa-key"></i></button>
+                            </td>
+                        </tr>
                         //Sửa NV
-                        <div class="modal fade" id="sua-@dd.MaDiaDiem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="sua-@diaDiem.MaDiaDiem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật nhân viên</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật địa điểm</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="NhanVien">
-                                            
+                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DiaDiem">
+                                            <div class="form-group">
+                                                <label asp-for="@diaDiem.MaDiaDiem">Mã địa điểm</label>
+                                                <input readonly="readonly" class="form-control" asp-for="@diaDiem.MaDiaDiem" value="@diaDiem.MaDiaDiem">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@diaDiem.TenDiaDiem">Tên địa điểm</label>
+                                                <input class="form-control" asp-for="@diaDiem.TenDiaDiem" value="@diaDiem.TenDiaDiem" placeholder="Tên địa điểm">
+                                            </div>
                                             <div class="modal-footer">
                                                 <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
                                                 <button type="submit" class="btn btn-success">Sửa</button>
