@@ -55,5 +55,10 @@ namespace Application.Services
             var lcps = loaiChiPhiRepository.Filter(sortOrder, searchString, pageIndex, pageSize,out count);
             return mapper.Map<IEnumerable<LoaiChiPhiDTO>>(lcps);
         }
+
+        public IEnumerable<LoaiChiPhiDTO> GetDTOs()
+        {
+            return mapper.Map<IEnumerable<LoaiChiPhiDTO>>(loaiChiPhiRepository.GetAll());
+        }
     }
 }

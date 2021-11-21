@@ -5,25 +5,25 @@
 
 }
 
-<div class="modal fade" id="themNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="themDoan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm nhân viên</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Thêm đoàn</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
 
-            <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="DoanDuLich">
+            <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="DoanDuLich">
+                <div class="modal-body">
                     <div class="form-group">
-                        <label asp-for=DoanDuLich.TenDoan>Tên đoàn</label>
+                        <label asp-for="DoanDuLich.TenDoan">Tên đoàn</label>
                         <input class="form-control" asp-for="DoanDuLich.TenDoan" placeholder="Tên đoàn">
                     </div>
                     <div class="form-group">
-                        <label asp-for=DoanDuLich.MaTour>Tên tour</label>
-                        <select class="form-control" asp-for=DoanDuLich.MaTour asp-items="@(new SelectList(ViewBag.tour, "MaTour", "TenGoi"))"></select>
+                        <label asp-for="DoanDuLich.MaTour">Tên tour</label>
+                        <select class="form-control" asp-for="DoanDuLich.MaTour" asp-items="@(new SelectList(ViewBag.Tour, "MaTour", "TenGoi"))"></select>
                     </div>
                     <div class="form-group">
                         <label asp-for="DoanDuLich.NgayKhoiHanh">Ngày khởi hành</label>
@@ -33,12 +33,12 @@
                         <label asp-for="DoanDuLich.NgayKetThuc">Ngày kết thúc</label>
                         <input class="form-control" asp-for="DoanDuLich.NgayKhoiHanh">
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-success">Thêm</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -46,13 +46,13 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách nhân viên</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách đoàn</h6>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themNhanVien">Thêm</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themDoan">Thêm</button>
                 </p>
             </div>
             <div class="col-md-4">
@@ -104,23 +104,25 @@
                     </tr>
                 </thead>
                 <tbody>
-               @foreach (var doan in Model.DoanDuLiches)
-                {
-                    <tr>
-                        <td>@doan.MaDoan</td>
-                        <td>@doan.TenTour</td>
-                        <td>@doan.TenDoan</td>
-                        <td>@doan.NgayKhoiHanh</td>
-                        <td>@doan.NgayKetThuc</td>
-                        <td>@doan.DoanhThu</td>
-                        <td>
-                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@doan.MaDoan" ><i class="far fa-edit"></i></button>
-                            <a class="btn btn-success" asp-action="ChiTietTour" asp-route-madoan="@doan.MaDoan" asp-route-list="khachhang"><i class="fas fa-key"></i></a>
-                        </td>
-                    </tr>
-                    
+                    @foreach (var doanDuLich in Model.DoanDuLiches)
+                    {
+                        <tr>
+                            <td>@doanDuLich.MaDoan</td>
+                            <td>@doanDuLich.TenTour</td>
+                            <td>@doanDuLich.TenDoan</td>
+                            <td>@doanDuLich.NgayKhoiHanh</td>
+                            <td>@doanDuLich.NgayKetThuc</td>
+                            <td>@doanDuLich.DoanhThu</td>
+                            <td>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#sua-@doanDuLich.MaDoan"><i class="far fa-edit"></i></button>
+                                <a class="btn btn-success" asp-area="Manager" asp-action="Index" asp-controller="ChiTietDoan" asp-route-madoan="@doanDuLich.MaDoan" asp-route-list="khachhang"><i class="fas fa-users"></i></a>
+                                <a class="btn btn-success" asp-area="Manager" asp-action="Index" asp-controller="ChiTietDoan" asp-route-madoan="@doanDuLich.MaDoan" asp-route-list="nhanvien"><i class="fas fa-user-tie"></i></a>
+                                <a class="btn btn-success" asp-area="Manager" asp-action="Index" asp-controller="ChiTietDoan" asp-route-madoan="@doanDuLich.MaDoan" asp-route-list="chiphi"><i class="fas fa-dollar-sign"></i></a>
+                            </td>
+                        </tr>
+
                         //Sửa
-                        <div class="modal fade" id="sua-@doan.MaDoan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="sua-@doanDuLich.MaDoan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -129,27 +131,39 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DoanDuLich">
+                                    <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DoanDuLich">
+                                        <div class="modal-body">
                                             <div class="form-group">
-                                                <label asp-for="@doan.MaDoan">Mã đoàn</label>
-                                                <input readonly="readonly" class="form-control" asp-for="@doan.MaDoan" value="@doan.MaDoan">
+                                                <label asp-for="@doanDuLich.MaDoan">Mã đoàn</label>
+                                                <input readonly="readonly" class="form-control" asp-for="@doanDuLich.MaDoan" placeholder="Mã đoàn">
                                             </div>
                                             <div class="form-group">
-                                                <label asp-for=@doan.MaTour>Tên tour</label>
-                                                <select class="form-control" asp-for=DoanDuLich.MaTour asp-items="@(new SelectList(ViewBag.tour, "MaTour", "TenGoi"))"></select>
+                                                <label asp-for="@doanDuLich.TenDoan">Tên đoàn</label>
+                                                <input class="form-control" asp-for="@doanDuLich.TenDoan" placeholder="Tên đoàn">
                                             </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
-                                                <button type="submit" class="btn btn-success">Sửa</button>
+                                            <div class="form-group">
+                                                <label asp-for="@doanDuLich.MaTour">Tên tour</label>
+                                                <select class="form-control" asp-for="@doanDuLich.MaTour" asp-items="@(new SelectList(ViewBag.Tour, "MaTour", "TenGoi"))"></select>
                                             </div>
-                                        </form>
-                                    </div>
+                                            <div class="form-group">
+                                                <label asp-for="@doanDuLich.NgayKhoiHanh">Ngày khởi hành</label>
+                                                <input class="form-control" asp-for="@doanDuLich.NgayKhoiHanh">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@doanDuLich.NgayKetThuc">Ngày kết thúc</label>
+                                                <input class="form-control" asp-for="@doanDuLich.NgayKetThuc">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-success">Sửa</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    
-                }
+
+                    }
                 </tbody>
             </table>
         </div>

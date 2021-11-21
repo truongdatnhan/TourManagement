@@ -1,0 +1,156 @@
+﻿@using ThuVien.Areas.Manager.ViewModels
+@model DoanDuLich_ChiPhiVM
+
+@{ ViewData["Title"] = "Danh sách chi tiết phí đoàn";
+
+}
+
+<div class="modal fade" id="themChiPhi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm chi phí</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <form method="POST" asp-area="Manager" asp-action="Create_CP" asp-controller="ChiTietDoan">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="ChiPhi.MaDoan">Mã đoàn</label>
+                        <input readonly="readonly" class="form-control" asp-for="ChiPhi.MaDoan" value="@ViewBag.MaDoan" placeholder="Mã đoàn">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ChiPhi.MaLoaiChiPhi">Loại chi phí</label>
+                        <select class="form-control" asp-for="ChiPhi.MaLoaiChiPhi" asp-items="@(new SelectList(ViewBag.LoaiChiPhi, "MaLoaiChiPhi", "TenLoaiChiPhi"))"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ChiPhi.SoTien">Tiền</label>
+                        <input type="number" class="form-control" asp-for="ChiPhi.SoTien">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách chi phí</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <p>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themChiPhi">Thêm</button>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <form method="GET">
+                    <div class="input-group">
+                        <input class="form-control" type="text" asp-for="SearchString" />
+                        <div class="input-group-btn">
+                            <button class="btn btn-dark" type="submit">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-route-searchString="@Model.SearchString">
+                                @Html.DisplayNameFor(model => model.ChiPhis[0].MaChiPhi)
+                            </a>
+                        </th>
+                        <th>
+                            <a>
+                                @Html.DisplayNameFor(model => model.ChiPhis[0].TenLoaiChiPhi)
+                            </a>
+                        </th>
+                        <th>
+                            <a>
+                                @Html.DisplayNameFor(model => model.ChiPhis[0].SoTien)
+                            </a>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+               @foreach (var chiPhi in Model.ChiPhis)
+                {
+                    <tr>
+                        <td>@chiPhi.MaChiPhi</td>
+                        <td>@chiPhi.TenLoaiChiPhi</td>
+                        <td>@chiPhi.SoTien</td>
+                        <td>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@chiPhi.MaChiPhi"><i class="far fa-edit"></i></button>
+                        </td>
+                    </tr>
+                    
+                        //Sửa
+                        <div class="modal fade" id="sua-@chiPhi.MaChiPhi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật chi phí</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+
+                                    <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DoanDuLich">
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label asp-for="@chiPhi.MaChiPhi">Mã chi phí</label>
+                                                <input readonly="readonly" class="form-control" asp-for="@chiPhi.MaChiPhi" placeholder="Mã chi phí">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@chiPhi.MaDoan">Mã đoàn</label>
+                                                <input readonly="readonly" class="form-control" asp-for="@chiPhi.MaDoan" placeholder="Mã đoàn">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@chiPhi.MaLoaiChiPhi">Loại chi phí</label>
+                                                <select class="form-control" asp-for="@chiPhi.MaLoaiChiPhi" asp-items="@(new SelectList(ViewBag.LoaiChiPhi, "MaLoaiChiPhi", "TenLoaiChiPhi"))">
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@chiPhi.SoTien">Tiền</label>
+                                                <input type="number" class="form-control" asp-for="@chiPhi.SoTien">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-success">Sửa</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@{ var prevDisabled = !Model.ChiPhis.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.ChiPhis.HasNextPage ? "disabled" : ""; }
+
+<a class="btn btn-default @prevDisabled"
+   asp-route-sortOrder="@Model.SortOrder"
+   asp-route-searchString="@Model.SearchString"
+   asp-route-pageIndex="@(Model.ChiPhis.PageIndex -1)">Trước</a>
+<a class="btn btn-default @nextDisabled"
+   asp-route-sortOrder="@Model.SortOrder"
+   asp-route-searchString="@Model.SearchString"
+   asp-route-pageIndex="@(Model.ChiPhis.PageIndex +1)">Sau</a>

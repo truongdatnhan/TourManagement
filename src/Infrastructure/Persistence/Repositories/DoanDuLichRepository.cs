@@ -34,6 +34,7 @@ namespace Infrastructure.Persistence.Repositories
                                            MaKhachHang = kh.MaKhachHang,
                                            HoTen = kh.HoTen,
                                            SoCMND = kh.SoCMND,
+                                           DiaChi = kh.DiaChi,
                                            GioiTinh = kh.GioiTinh,
                                            SDT = kh.SDT,
                                            QuocTich = kh.QuocTich,
@@ -93,6 +94,7 @@ namespace Infrastructure.Persistence.Repositories
                                     {
                                         MaDoan = x.MaDoan,
                                         MaTour = x.MaTour,
+                                        TenDoan = x.TenDoan,
                                         NoiDungTour = x.NoiDungTour,
                                         NgayKhoiHanh = x.NgayKhoiHanh,
                                         NgayKetThuc = x.NgayKetThuc,

@@ -7,7 +7,7 @@ namespace Domain.Interfaces
     {
         IEnumerable<T> GetAll();
 
-        T GetBy(int id);
+        T GetBy(params object[] keyValues);
 
         void Add(T entity);
 

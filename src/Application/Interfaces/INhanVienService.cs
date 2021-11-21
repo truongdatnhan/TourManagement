@@ -5,6 +5,6 @@ namespace Application.Interfaces
 {
     public interface INhanVienService : IService<NhanVienDTO>
     {
-
+        IEnumerable<NhanVienDTO> GetDTOs();
     }
 }

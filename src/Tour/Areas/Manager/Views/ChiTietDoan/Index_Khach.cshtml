@@ -1,11 +1,12 @@
 ﻿@using ThuVien.Areas.Manager.ViewModels
+@using Application.DTOs.Enum
 @model DoanDuLich_KhachVM
 
 @{ ViewData["Title"] = "Danh sách chi tiết khách đoàn";
 
 }
 
-<div class="modal fade" id="themNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="themKhach" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -15,15 +16,27 @@
                 </button>
             </div>
 
-            <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="DoanDuLich">
-                    
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-success">Thêm</button>
+            <form method="POST" asp-area="Manager" asp-action="Create_KH" asp-controller="ChiTietDoan">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="ChiTietDoan.MaDoan">Mã đoàn</label>
+                        <input readonly="readonly" class="form-control" asp-for="ChiTietDoan.MaDoan" value="@ViewBag.MaDoan" placeholder="Mã đoàn">
                     </div>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label asp-for="ChiTietDoan.MaKhachHang">Khách hàng</label>
+                        <select class="form-control" asp-for="ChiTietDoan.MaKhachHang" asp-items="@(new SelectList(ViewBag.Khach, "MaKhachHang", "HoTen"))"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ChiTietDoan.VaiTro">Vai trò</label>
+                        <select class="form-control" asp-for="ChiTietDoan.VaiTro" asp-items="Html.GetEnumSelectList<VaiTro>()">
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -37,7 +50,7 @@
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themNhanVien">Thêm</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themKhach">Thêm</button>
                 </p>
             </div>
             <div class="col-md-4">
@@ -105,29 +118,31 @@
                         <td>@khach.SDT</td>
                         <td>@khach.VaiTro</td>
                         <td>
-                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@khach.MaKhachHang"><i class="far fa-edit"></i></button>
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#xoa-@khach.MaKhachHang"><i class="far fa-edit"></i></button>
                         </td>
                     </tr>
                     
                         //Sửa
-                        <div class="modal fade" id="sua-@khach.MaKhachHang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="xoa-@khach.MaKhachHang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật đoàn</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Xoá khách</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DoanDuLich">
-                                            
-                                            <div class="modal-footer">
-                                                <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
-                                                <button type="submit" class="btn btn-success">Sửa</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                    <form method="POST" asp-area="Manager" asp-action="Delete_KH" asp-controller="ChiTietDoan">
+                                        <div class="modal-body">
+                                            <input type="hidden" class="form-control" asp-for="ChiTietDoan.MaDoan" value="@ViewBag.MaDoan">
+                                            <input type="hidden" class="form-control" asp-for="ChiTietDoan.MaKhachHang" value="@khach.MaKhachHang">
+                                            <p>Bạn có chắc muốn xoá.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-danger">Xoá</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -22,9 +22,9 @@ namespace Infrastructure.Persistence.Repositories
             return context.Set<T>().ToList();
         }
 
-        public T GetBy(int id)
+        public T GetBy(params object[] keyValues)
         {
-            return context.Set<T>().Find(id);
+            return context.Set<T>().Find(keyValues);
         }
 
         public void Add(T entity)

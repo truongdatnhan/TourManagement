@@ -15,20 +15,18 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-
-            <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="LoaiHinhDuLich">
-
+            <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="LoaiHinhDuLich">
+                <div class="modal-body">
                     <div class="form-group">
-                        <label asp-for=LoaiHinhDuLich.TenLoaiHinh>Tên loại hình du lịch</label>
-                        <input class="form-control" asp-for=LoaiHinhDuLich.TenLoaiHinh placeholder="Tên loại hình du lịch">
+                        <label asp-for="LoaiHinhDuLich.TenLoaiHinh">Tên loại hình du lịch</label>
+                        <input class="form-control" asp-for="LoaiHinhDuLich.TenLoaiHinh" placeholder="Tên loại hình du lịch">
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-success">Thêm</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -93,8 +91,8 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="LoaiHinhDuLich">
+                                    <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="LoaiHinhDuLich">
+                                        <div class="modal-body">
                                             <div class="form-group">
                                                 <label asp-for="@loaiHinhDuLich.MaLoaiHinh">Mã Loại Hình Du Lịch</label>
                                                 <input readonly="readonly" class="form-control" asp-for="@loaiHinhDuLich.MaLoaiHinh">
@@ -103,12 +101,12 @@
                                                 <label asp-for="@loaiHinhDuLich.TenLoaiHinh">Tên loại hình du lịch</label>
                                                 <input class="form-control" asp-for="@loaiHinhDuLich.TenLoaiHinh" placeholder="Tên loại hình du lịch">
                                             </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
-                                                <button type="submit" class="btn btn-success">Sửa</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-success">Sửa</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

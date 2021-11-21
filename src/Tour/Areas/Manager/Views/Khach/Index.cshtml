@@ -18,12 +18,11 @@
                 </button>
             </div>
 
-            <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="Khach">
-
+            <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="Khach">
+                <div class="modal-body">
                     <div class="form-group">
-                        <label asp-for=Khach.HoTen>Họ Tên Khách Hàng</label>
-                        <input class="form-control" asp-for=Khach.HoTen placeholder="Họ Tên Khách Hàng">
+                        <label asp-for="Khach.HoTen">Họ Tên Khách Hàng</label>
+                        <input class="form-control" asp-for="Khach.HoTen" placeholder="Họ Tên Khách Hàng">
                     </div>
                     <div class="form-group">
                         <label asp-for="Khach.SoCMND">CMND</label>
@@ -31,29 +30,30 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Khach.DiaChi">Địa Chỉ</label>
-                        <input class="form-control" asp-for="Khach.DiaChi"  placeholder="Địa Chỉ">
+                        <input class="form-control" asp-for="Khach.DiaChi" placeholder="Địa Chỉ">
                     </div>
                     <div class="form-group">
                         <label asp-for="Khach.GioiTinh">Giới Tính</label>
-                        <select class="form-control" name="Khach.GioiTinh" id="Khach.GioiTinh" asp-items="Html.GetEnumSelectList<Gender>()">
-                            <option selected="selected" value="">-- Chọn giới tính --</option>
+                        <!--<select class="form-control" name="Khach.GioiTinh" id="Khach.GioiTinh" asp-items="Html.GetEnumSelectList<Gender>()">
+                    <option selected="selected" value="">-- Chọn giới tính --</option>
+                </select> -->
+                        <select class="form-control" asp-for="Khach.GioiTinh" asp-items="Html.GetEnumSelectList<Gender>()">
                         </select>
                     </div>
                     <div class="form-group">
                         <label asp-for="Khach.SDT">SĐT</label>
-                        <input class="form-control" asp-for="Khach.SDT"  placeholder="Số điện thoại">
+                        <input class="form-control" asp-for="Khach.SDT" placeholder="Số điện thoại">
                     </div>
                     <div class="form-group">
                         <label asp-for="Khach.QuocTich">Quốc Tịch</label>
-                        <input class="form-control" asp-for="Khach.QuocTich"  placeholder="Quốc Tịch">
+                        <input class="form-control" asp-for="Khach.QuocTich" placeholder="Quốc Tịch">
                     </div>
-
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-success">Thêm</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -148,8 +148,8 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="Khach">
+                                    <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="Khach">
+                                        <div class="modal-body">
                                             <div class="form-group">
                                                 <label asp-for="@khach.MaKhachHang">Mã khách hàng</label>
                                                 <input readonly="readonly" class="form-control" asp-for="@khach.MaKhachHang">
@@ -179,12 +179,12 @@
                                                 <label asp-for="@khach.QuocTich">Quốc Tịch</label>
                                                 <input class="form-control" asp-for="@khach.QuocTich" placeholder="Quốc Tịch">
                                             </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
-                                                <button type="submit" class="btn btn-success">Sửa</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-success">Sửa</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

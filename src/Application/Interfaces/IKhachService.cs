@@ -9,6 +9,6 @@ namespace Application.Interfaces
 {
     public interface IKhachService : IService<KhachDTO>
     {
-
+        IEnumerable<KhachDTO> GetDTOs();
     }
 }

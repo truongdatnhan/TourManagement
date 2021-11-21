@@ -1,18 +1,12 @@
 @using ThuVien.Areas.Manager.ViewModels
 @model TourDuLichVM
 
-@{ ViewData["Title"] = "Danh sách địa điểm";
-    Layout = "~/Areas/Manager/Views/Shared/_ManagerLayout.cshtml";
+@{ ViewData["Title"] = "Danh sách tour";
 
-    var honvSort = (Model.SortOrder == "honv") ? "honv_desc" : "tennv";
-    var tennvSort = (Model.SortOrder == "tennv") ? "tennv_desc" : "tennv";
-    var dobnvSort = (Model.SortOrder == "dobnv") ? "dobnv_desc" : "dobnv";
-    var sdtnvSort = (Model.SortOrder == "sdtnv") ? "sdtnv_desc" : "sdtnv";
-    var emailnvSort = (Model.SortOrder == "emailnv") ? "emailnv_desc" : "emailnv"; }
+ }
 
-@* Trang địa điểm # An*@
 
-<div class="modal fade" id="themDiaDiem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="themTour" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -22,16 +16,26 @@
                 </button>
             </div>
 
-            <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="TourDuLich">
-
-
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-success">Thêm</button>
+            <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="TourDuLich">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="Tour.TenGoi">Tên tour</label>
+                        <input class="form-control" asp-for="Tour.TenGoi" placeholder="Tên tour">
                     </div>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label asp-for="Tour.DacDiem">Đặc điểm</label>
+                        <input class="form-control" asp-for="Tour.DacDiem" placeholder="Đặc điểm">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Tour.MaLoaiHinh">Loại hình</label>
+                        <select class="form-control" asp-for="Tour.MaLoaiHinh" asp-items="@(new SelectList(ViewBag.LoaiHinh, "MaLoaiHinh", "TenLoaiHinh"))"></select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -45,7 +49,7 @@
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themDiaDiem">Thêm</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themTour">Thêm</button>
                 </p>
             </div>
             <div class="col-md-4">
@@ -109,15 +113,16 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DiaDiem">
-                                            
-                                            <div class="modal-footer">
-                                                <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
-                                                <button type="submit" class="btn btn-success">Sửa</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                    <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DiaDiem">
+                                        <div class="modal-body">
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-success">Sửa</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

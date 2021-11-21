@@ -55,5 +55,10 @@ namespace Application.Services
             var nhanViens = nhanVienRepository.Filter(sortOrder, searchString, pageIndex, pageSize, out count);
             return mapper.Map<IEnumerable<NhanVienDTO>>(nhanViens);
         }
+
+        public IEnumerable<NhanVienDTO> GetDTOs()
+        {
+            return mapper.Map<IEnumerable<NhanVienDTO>>(nhanVienRepository.GetAll());
+        }
     }
 }

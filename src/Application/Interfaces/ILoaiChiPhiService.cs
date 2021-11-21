@@ -5,6 +5,6 @@ namespace Application.Interfaces
 {
     public interface ILoaiChiPhiService : IService<LoaiChiPhiDTO>
     {
-
+        IEnumerable<LoaiChiPhiDTO> GetDTOs();
     }
 }

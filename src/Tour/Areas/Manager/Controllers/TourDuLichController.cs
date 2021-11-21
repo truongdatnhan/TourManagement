@@ -14,10 +14,12 @@ namespace Tour.Areas.Manager.Controllers
     public class TourDuLichController : Controller
     {
         private readonly ITourDuLichService tourDuLichService;
+        private readonly ILoaiHinhDuLichService loaiHinhDuLichService;
 
-        public TourDuLichController(ITourDuLichService tourDuLichService)
+        public TourDuLichController(ITourDuLichService tourDuLichService, ILoaiHinhDuLichService loaiHinhDuLichService)
         {
             this.tourDuLichService = tourDuLichService;
+            this.loaiHinhDuLichService = loaiHinhDuLichService;
         }
 
         public IActionResult Index(string sortOrder, string searchString, int pageIndex = 1)
@@ -33,6 +35,7 @@ namespace Tour.Areas.Manager.Controllers
                 SortOrder = sortOrder,
                 Tour = tour
             };
+            ViewBag.LoaiHinh = loaiHinhDuLichService.GetDTOs();
             return View(VM);
         }
 

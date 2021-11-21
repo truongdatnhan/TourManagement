@@ -7,6 +7,7 @@ namespace ThuVien.Areas.Manager.ViewModels
     {
         public PaginatedList<KhachDTO> Khaches { get; set; }
         public KhachDTO Khach { get; set; }
+        public ChiTietDoanDTO ChiTietDoan { get; set; }
         public string SearchString { get; set; }
         public string SortOrder { get; set; }
 

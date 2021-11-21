@@ -27,9 +27,9 @@ namespace Application.Services
             return true;
         }
 
-        public ChiTietDoanDTO Get(int id)
+        public ChiTietDoanDTO Get(ChiTietDoanDTO dto)
         {
-            var ctd = chiTietDoanRepository.GetBy(id);
+            var ctd = chiTietDoanRepository.GetBy(dto.MaDoan, dto.MaKhachHang);
             return mapper.Map<ChiTietDoanDTO>(ctd);
         }
 
@@ -41,9 +41,9 @@ namespace Application.Services
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(ChiTietDoanDTO dto)
         {
-            var ctd = chiTietDoanRepository.GetBy(id);
+            var ctd = chiTietDoanRepository.GetBy(dto.MaDoan, dto.MaKhachHang);
             chiTietDoanRepository.Delete(ctd);
             return true;
         }

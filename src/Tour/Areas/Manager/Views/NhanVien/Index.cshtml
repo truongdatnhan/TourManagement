@@ -19,23 +19,22 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-
-            <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="NhanVien">
-
+            <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="NhanVien">
+                <div class="modal-body">
                     <div class="form-group">
-                        <label asp-for=NhanVien.TenNhanVien>Tên nhân viên</label>
-                        <input class="form-control" asp-for=NhanVien.TenNhanVien placeholder="Tên nhân viên">
+                        <label asp-for="NhanVien.TenNhanVien">Tên nhân viên</label>
+                        <input class="form-control" asp-for="NhanVien.TenNhanVien" placeholder="Tên nhân viên">
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-success">Thêm</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 
 <div class="card shadow mb-4">
@@ -97,22 +96,22 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="NhanVien">
+                                    <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="NhanVien">
+                                        <div class="modal-body">
                                             <div class="form-group">
                                                 <label asp-for="@nhanVien.MaNhanVien">Mã nhân viên</label>
-                                                <input readonly="readonly" class="form-control" asp-for="@nhanVien.MaNhanVien" >
+                                                <input readonly="readonly" class="form-control" asp-for="@nhanVien.MaNhanVien">
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="@nhanVien.TenNhanVien">Tên nhân viên</label>
                                                 <input class="form-control" asp-for="@nhanVien.TenNhanVien" placeholder="Tên nhân viên">
                                             </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
-                                                <button type="submit" class="btn btn-success">Sửa</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-success">Sửa</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

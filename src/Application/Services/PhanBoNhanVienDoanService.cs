@@ -27,23 +27,23 @@ namespace Application.Services
             return true;
         }
 
-        public PhanBoNhanVienDoanDTO Get(int id)
+        public PhanBoNhanVienDoanDTO Get(PhanBoNhanVienDoanDTO dto)
         {
-            var pb = phanBoNhanVienDoanRepository.GetBy(id);
+            var pb = phanBoNhanVienDoanRepository.GetBy(dto.MaDoan, dto.MaNhanVien);
             return mapper.Map<PhanBoNhanVienDoanDTO>(pb);
         }
 
         public bool Update(PhanBoNhanVienDoanDTO dto)
         {
-            var pb = phanBoNhanVienDoanRepository.GetBy(dto.MaDoan);
+            var pb = phanBoNhanVienDoanRepository.GetBy(dto.MaDoan, dto.MaNhanVien);
             mapper.Map<PhanBoNhanVienDoanDTO, PhanBoNhanVienDoan>(dto, pb);
             phanBoNhanVienDoanRepository.Update(pb);
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(PhanBoNhanVienDoanDTO dto)
         {
-            var pb = phanBoNhanVienDoanRepository.GetBy(id);
+            var pb = phanBoNhanVienDoanRepository.GetBy(dto.MaDoan, dto.MaNhanVien);
             phanBoNhanVienDoanRepository.Delete(pb);
             return true;
         }

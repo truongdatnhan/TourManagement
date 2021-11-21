@@ -17,19 +17,18 @@
                 </button>
             </div>
 
-            <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="DiaDiem">
-
+            <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="DiaDiem">
+                <div class="modal-body">
                     <div class="form-group">
-                        <label asp-for=DiaDiem.TenDiaDiem>Tên địa điểm</label>
-                        <input class="form-control" asp-for=DiaDiem.TenDiaDiem placeholder="Tên địa điểm">
+                        <label asp-for="DiaDiem.TenDiaDiem">Tên địa điểm</label>
+                        <input class="form-control" asp-for="DiaDiem.TenDiaDiem" placeholder="Tên địa điểm">
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-success">Thêm</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -94,8 +93,8 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DiaDiem">
+                                    <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DiaDiem">
+                                        <div class="modal-body">
                                             <div class="form-group">
                                                 <label asp-for="@diaDiem.MaDiaDiem">Mã địa điểm</label>
                                                 <input readonly="readonly" class="form-control" asp-for="@diaDiem.MaDiaDiem">
@@ -104,12 +103,12 @@
                                                 <label asp-for="@diaDiem.TenDiaDiem">Tên địa điểm</label>
                                                 <input class="form-control" asp-for="@diaDiem.TenDiaDiem" placeholder="Tên địa điểm">
                                             </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
-                                                <button type="submit" class="btn btn-success">Sửa</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-success">Sửa</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

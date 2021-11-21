@@ -14,18 +14,18 @@
                 </button>
             </div>
 
-            <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="LoaiChiPhi">
+            <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="LoaiChiPhi">
+                <div class="modal-body">
                     <div class="form-group">
-                        <label asp-for=LoaiChiPhi.TenLoaiChiPhi>Tên loại chi phí</label>
-                        <input class="form-control" asp-for=LoaiChiPhi.TenLoaiChiPhi placeholder="Tên loại chi phí">
+                        <label asp-for="LoaiChiPhi.TenLoaiChiPhi">Tên loại chi phí</label>
+                        <input class="form-control" asp-for="LoaiChiPhi.TenLoaiChiPhi" placeholder="Tên loại chi phí">
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-success">Thêm</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -33,7 +33,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách nhân viên</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách loại chi phí</h6>
     </div>
     <div class="card-body">
         <div class="row">
@@ -90,8 +90,8 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="LoaiChiPhi">
+                                    <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="LoaiChiPhi">
+                                        <div class="modal-body">
                                             <div class="form-group">
                                                 <label asp-for="@loaiChiPhi.MaLoaiChiPhi">Mã loại chi phí</label>
                                                 <input readonly="readonly" class="form-control" asp-for="@loaiChiPhi.MaLoaiChiPhi">
@@ -100,12 +100,12 @@
                                                 <label asp-for="@loaiChiPhi.TenLoaiChiPhi">Tên nhân viên</label>
                                                 <input class="form-control" asp-for="@loaiChiPhi.TenLoaiChiPhi" placeholder="Tên loại chi phí">
                                             </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
-                                                <button type="submit" class="btn btn-success">Sửa</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-success">Sửa</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

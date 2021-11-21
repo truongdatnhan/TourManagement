@@ -14,16 +14,26 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-
-            <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="DoanDuLich">
-                    
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-success">Thêm</button>
+            <form method="POST" asp-area="Manager" asp-action="Create_NV" asp-controller="ChiTietDoan">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="PhanBoNhanVienDoan.MaDoan">Mã đoàn</label>
+                        <input readonly="readonly" class="form-control" asp-for="PhanBoNhanVienDoan.MaDoan" value="@ViewBag.MaDoan" placeholder="Mã đoàn">
                     </div>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label asp-for="PhanBoNhanVienDoan.MaNhanVien">Nhân viên</label>
+                        <select class="form-control" asp-for="PhanBoNhanVienDoan.MaNhanVien" asp-items="@(new SelectList(ViewBag.NhanVien, "MaNhanVien", "TenNhanVien"))"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhanBoNhanVienDoan.NhiemVu">Nhiệm vụ</label>
+                        <input class="form-control" asp-for="PhanBoNhanVienDoan.NhiemVu" placeholder="Nhiệm vụ được giao">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -82,12 +92,12 @@
                         <td>@nv.NhiemVu</td>
                         
                         <td>
-                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@nv.MaNhanVien"><i class="far fa-edit"></i></button>
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#xoa-@nv.MaNhanVien"><i class="far fa-edit"></i></button>
                         </td>
                     </tr>
                     
                         //Sửa
-                        <div class="modal fade" id="sua-@nv.MaNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="xoa-@nv.MaNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -96,15 +106,17 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DoanDuLich">
-                                            
-                                            <div class="modal-footer">
-                                                <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
-                                                <button type="submit" class="btn btn-success">Sửa</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                    <form method="POST" asp-area="Manager" asp-action="Delete_NV" asp-controller="ChiTietDoan">
+                                        <div class="modal-body">
+                                            <input type="hidden" class="form-control" asp-for="PhanBoNhanVienDoan.MaDoan" value="@ViewBag.MaDoan">
+                                            <input type="hidden" class="form-control" asp-for="PhanBoNhanVienDoan.MaNhanVien" value="@nv.MaNhanVien">
+                                            <p>Bạn có chắc muốn xoá.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-danger">Xoá</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

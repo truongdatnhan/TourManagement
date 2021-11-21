@@ -8,7 +8,7 @@ namespace Application.Mapper
     {
         public PhanBoNhanVienDoanProfile()
         {
-            CreateMap<PhanBoNhanVienDoanDTO, PhanBoNhanVienDoanDTO>();
+            CreateMap<PhanBoNhanVienDoanDTO, PhanBoNhanVienDoan>();
             CreateMap<PhanBoNhanVienDoan, PhanBoNhanVienDoanDTO>();
         }
     }

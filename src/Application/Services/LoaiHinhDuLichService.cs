@@ -55,6 +55,10 @@ namespace Application.Services
             var lhs = loaiHinhDuLichRepository.Filter(sortOrder, searchString, pageIndex, pageSize, out count);
             return mapper.Map<IEnumerable<LoaiHinhDuLichDTO>>(lhs);
         }
-        
+
+        public IEnumerable<LoaiHinhDuLichDTO> GetDTOs()
+        {
+            return mapper.Map<IEnumerable<LoaiHinhDuLichDTO>>(loaiHinhDuLichRepository.GetAll());
+        }
     }
 }

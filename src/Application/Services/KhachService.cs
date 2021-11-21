@@ -56,5 +56,10 @@ namespace Application.Services
             var khachs = khachRepository.Filter(sortOrder, searchString, pageIndex, pageSize, out count);
             return mapper.Map<IEnumerable<KhachDTO>>(khachs);
         }
+
+        public IEnumerable<KhachDTO> GetDTOs()
+        {
+            return mapper.Map<IEnumerable<KhachDTO>>(khachRepository.GetAll());
+        }
     }
 }

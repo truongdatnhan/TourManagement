@@ -11,8 +11,8 @@ namespace Application.Interfaces
     {
         IEnumerable<ChiTietDoanDTO> GetAll();
         bool Create(ChiTietDoanDTO dto);
-        ChiTietDoanDTO Get(int id);
+        ChiTietDoanDTO Get(ChiTietDoanDTO dto);
         bool Update(ChiTietDoanDTO dto);
-        bool Delete(int id);
+        bool Delete(ChiTietDoanDTO dto);
     }
 }
