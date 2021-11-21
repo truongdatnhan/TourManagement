@@ -88,7 +88,17 @@ namespace Infrastructure.Persistence.Repositories
 
         public IEnumerable<DoanDuLich> Filter(string sortOrder, string searchString, int pageIndex, int pageSize, out int count)
         {
-            var query = context.DoanDuLiches.AsQueryable();
+            //var query = context.DoanDuLiches.AsQueryable();
+            var query = context.DoanDuLiches.Select(x => new DoanDuLich
+                                    {
+                                        MaDoan = x.MaDoan,
+                                        MaTour = x.MaTour,
+                                        NoiDungTour = x.NoiDungTour,
+                                        NgayKhoiHanh = x.NgayKhoiHanh,
+                                        NgayKetThuc = x.NgayKetThuc,
+                                        DoanhThu = x.DoanhThu,
+                                        TenTour = x.Tour.TenGoi
+                                    }).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
             {

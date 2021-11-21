@@ -14,8 +14,18 @@ namespace Infrastructure.Persistence.Repositories
 
         public override IEnumerable<TourDuLich> GetAll()
         {
-            return context.TourDuLiches.Include(x => x.DiaDiems).Include(x => x.DiemThamQuans)
-                .Include(x => x.LoaiHinh).Include(x => x.GiaTours).ToList();
+            var list = (from tour in context.TourDuLiches
+                        from lh in context.LoaiHinhDuLiches
+                        where tour.MaLoaiHinh == lh.MaLoaiHinh
+                        select new TourDuLich
+                        {
+                            MaTour = tour.MaTour,
+                            TenGoi = tour.TenGoi,
+                            DacDiem = tour.DacDiem,
+                            MaLoaiHinh = tour.MaLoaiHinh,
+                            TenLoaiHinh = lh.TenLoaiHinh
+                        }).ToList();
+            return list;
         }
 
         public IEnumerable<TourDuLich> GetTours()

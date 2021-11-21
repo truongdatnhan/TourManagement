@@ -2,18 +2,13 @@
 @model LoaiChiPhiVM
 
 @{ ViewData["Title"] = "Danh sách loại chi phí";
+}
 
-    var honvSort = (Model.SortOrder == "honv") ? "honv_desc" : "tennv";
-    var tennvSort = (Model.SortOrder == "tennv") ? "tennv_desc" : "tennv";
-    var dobnvSort = (Model.SortOrder == "dobnv") ? "dobnv_desc" : "dobnv";
-    var sdtnvSort = (Model.SortOrder == "sdtnv") ? "sdtnv_desc" : "sdtnv";
-    var emailnvSort = (Model.SortOrder == "emailnv") ? "emailnv_desc" : "emailnv"; }
-
-<div class="modal fade" id="themNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="themLoaiChiPhi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm nhân viên</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Thêm loại chi phí</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -44,7 +39,7 @@
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themNhanVien">Thêm</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themLoaiChiPhi">Thêm</button>
                 </p>
             </div>
             <div class="col-md-4">
@@ -76,18 +71,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var lcp in Model.LoaiChiPhis)
+                    @foreach (var loaiChiPhi in Model.LoaiChiPhis)
                     {
                         <tr>
-                            <td>@lcp.MaLoaiChiPhi</td>
-                            <td>@lcp.TenLoaiChiPhi</td>
+                            <td>@loaiChiPhi.MaLoaiChiPhi</td>
+                            <td>@loaiChiPhi.TenLoaiChiPhi</td>
                             <td>
-                                <button class="btn btn-success" data-toggle="modal" data-target="#sua-@lcp.MaLoaiChiPhi" a><i class="far fa-edit"></i></button>
-                                <button class="btn btn-outline-dark" data-toggle="modal" data-target="#permission-@lcp.MaLoaiChiPhi" a><i class="fas fa-key"></i></button>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#sua-@loaiChiPhi.MaLoaiChiPhi" a><i class="far fa-edit"></i></button>
                             </td>
                         </tr>
                         //Sửa NV
-                        <div class="modal fade" id="sua-@lcp.MaLoaiChiPhi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="sua-@loaiChiPhi.MaLoaiChiPhi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -97,14 +91,14 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="NhanVien">
+                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="LoaiChiPhi">
                                             <div class="form-group">
-                                                <label asp-for="@lcp.MaLoaiChiPhi">Mã loại chi phí</label>
-                                                <input readonly="readonly" class="form-control" asp-for="@lcp.MaLoaiChiPhi" value="@lcp.MaLoaiChiPhi">
+                                                <label asp-for="@loaiChiPhi.MaLoaiChiPhi">Mã loại chi phí</label>
+                                                <input readonly="readonly" class="form-control" asp-for="@loaiChiPhi.MaLoaiChiPhi">
                                             </div>
                                             <div class="form-group">
-                                                <label asp-for="@lcp.TenLoaiChiPhi">Tên nhân viên</label>
-                                                <input class="form-control" asp-for="@lcp.TenLoaiChiPhi" value="@lcp.TenLoaiChiPhi" placeholder="Tên loại chi phí">
+                                                <label asp-for="@loaiChiPhi.TenLoaiChiPhi">Tên nhân viên</label>
+                                                <input class="form-control" asp-for="@loaiChiPhi.TenLoaiChiPhi" placeholder="Tên loại chi phí">
                                             </div>
                                             <div class="modal-footer">
                                                 <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>

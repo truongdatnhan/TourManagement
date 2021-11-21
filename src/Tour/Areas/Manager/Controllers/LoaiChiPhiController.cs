@@ -46,5 +46,15 @@ namespace Tour.Areas.Manager.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public IActionResult Update(LoaiChiPhiVM vm)
+        {
+            if (ModelState.IsValid)
+            {
+                loaiChiPhiService.Update(vm.LoaiChiPhi);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

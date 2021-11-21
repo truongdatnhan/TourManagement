@@ -1,14 +1,10 @@
 @using ThuVien.Areas.Manager.ViewModels
+@using Application.DTOs.Enum 
 @model KhachVM
 
 @{ ViewData["Title"] = "Danh sách khách hàng";
-    Layout = "~/Areas/Manager/Views/Shared/_ManagerLayout.cshtml";
 
-    var honvSort = (Model.SortOrder == "honv") ? "honv_desc" : "tennv";
-    var tennvSort = (Model.SortOrder == "tennv") ? "tennv_desc" : "tennv";
-    var dobnvSort = (Model.SortOrder == "dobnv") ? "dobnv_desc" : "dobnv";
-    var sdtnvSort = (Model.SortOrder == "sdtnv") ? "sdtnv_desc" : "sdtnv";
-    var emailnvSort = (Model.SortOrder == "emailnv") ? "emailnv_desc" : "emailnv"; }
+ }
 
 @* Trang khách hàng # An*@
 
@@ -29,10 +25,9 @@
                         <label asp-for=Khach.HoTen>Họ Tên Khách Hàng</label>
                         <input class="form-control" asp-for=Khach.HoTen placeholder="Họ Tên Khách Hàng">
                     </div>
-
                     <div class="form-group">
                         <label asp-for="Khach.SoCMND">CMND</label>
-                        <input type="number" class="form-control" asp-for="Khach.SoCMND" value="Khach.SoCMND" placeholder="Số CMND">
+                        <input type="number" class="form-control" asp-for="Khach.SoCMND" placeholder="Số CMND">
                     </div>
                     <div class="form-group">
                         <label asp-for="Khach.DiaChi">Địa Chỉ</label>
@@ -40,7 +35,9 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Khach.GioiTinh">Giới Tính</label>
-                        <input class="form-control" asp-for="Khach.GioiTinh" placeholder="Giới Tính">
+                        <select class="form-control" name="Khach.GioiTinh" id="Khach.GioiTinh" asp-items="Html.GetEnumSelectList<Gender>()">
+                            <option selected="selected" value="">-- Chọn giới tính --</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label asp-for="Khach.SDT">SĐT</label>
@@ -155,31 +152,32 @@
                                         <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="Khach">
                                             <div class="form-group">
                                                 <label asp-for="@khach.MaKhachHang">Mã khách hàng</label>
-                                                <input readonly="readonly" class="form-control" asp-for="@khach.MaKhachHang" value="@khach.MaKhachHang">
+                                                <input readonly="readonly" class="form-control" asp-for="@khach.MaKhachHang">
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="@khach.HoTen">Họ & Tên</label>
-                                                <input class="form-control" asp-for="@khach.HoTen" value="@khach.HoTen" placeholder="Tên khách hàng">
+                                                <input class="form-control" asp-for="@khach.HoTen" placeholder="Tên khách hàng">
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="@khach.SoCMND">CMND</label>
-                                                <input type="number" class="form-control" asp-for="@khach.SoCMND" value="@khach.SoCMND" placeholder="Số CMND">
+                                                <input type="number" class="form-control" asp-for="@khach.SoCMND" placeholder="Số CMND">
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="@khach.DiaChi">Địa Chỉ</label>
-                                                <input class="form-control" asp-for="@khach.DiaChi" value="@khach.DiaChi" placeholder="Địa Chỉ">
+                                                <input class="form-control" asp-for="@khach.DiaChi" placeholder="Địa Chỉ">
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="@khach.GioiTinh">Giới Tính</label>
-                                                <input class="form-control" asp-for="@khach.GioiTinh" value="@khach.GioiTinh" placeholder="Giới Tính">
+                                                <select class="form-control" asp-for="@khach.GioiTinh" asp-items="Html.GetEnumSelectList<Gender>()">
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="@khach.SDT">SĐT</label>
-                                                <input class="form-control" asp-for="@khach.SDT" value="@khach.SDT" placeholder="Số điện thoại">
+                                                <input class="form-control" asp-for="@khach.SDT" placeholder="Số điện thoại">
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="@khach.QuocTich">Quốc Tịch</label>
-                                                <input class="form-control" asp-for="@khach.QuocTich" value="@khach.QuocTich" placeholder="Quốc Tịch">
+                                                <input class="form-control" asp-for="@khach.QuocTich" placeholder="Quốc Tịch">
                                             </div>
                                             <div class="modal-footer">
                                                 <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>

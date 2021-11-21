@@ -45,5 +45,15 @@ namespace Tour.Areas.Manager.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public IActionResult Update(KhachVM vm)
+        {
+            if (ModelState.IsValid)
+            {
+                khachService.Update(vm.Khach);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

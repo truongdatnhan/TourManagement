@@ -45,5 +45,15 @@ namespace Tour.Areas.Manager.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public IActionResult Update(DiaDiemVM vm)
+        {
+            if (ModelState.IsValid)
+            {
+                diaDiemService.Update(vm.DiaDiem);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

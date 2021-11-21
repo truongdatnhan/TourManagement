@@ -45,5 +45,15 @@ namespace Tour.Areas.Manager.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public IActionResult Update(LoaiHinhDuLichVM vm)
+        {
+            if (ModelState.IsValid)
+            {
+                loaiHinhDuLichService.Update(vm.LoaiHinhDuLich);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

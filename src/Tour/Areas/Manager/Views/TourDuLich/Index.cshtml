@@ -1,7 +1,8 @@
-﻿@using ThuVien.Areas.Manager.ViewModels
-@model NhanVienVM
+@using ThuVien.Areas.Manager.ViewModels
+@model TourDuLichVM
 
-@{ ViewData["Title"] = "Danh sách nhân viên";
+@{ ViewData["Title"] = "Danh sách địa điểm";
+    Layout = "~/Areas/Manager/Views/Shared/_ManagerLayout.cshtml";
 
     var honvSort = (Model.SortOrder == "honv") ? "honv_desc" : "tennv";
     var tennvSort = (Model.SortOrder == "tennv") ? "tennv_desc" : "tennv";
@@ -9,24 +10,22 @@
     var sdtnvSort = (Model.SortOrder == "sdtnv") ? "sdtnv_desc" : "sdtnv";
     var emailnvSort = (Model.SortOrder == "emailnv") ? "emailnv_desc" : "emailnv"; }
 
+@* Trang địa điểm # An*@
 
-<div class="modal fade" id="themNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="themDiaDiem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm nhân viên</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Thêm địa điểm</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
 
             <div class="modal-body">
-                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="NhanVien">
+                <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="TourDuLich">
 
-                    <div class="form-group">
-                        <label asp-for=NhanVien.TenNhanVien>Tên nhân viên</label>
-                        <input class="form-control" asp-for=NhanVien.TenNhanVien placeholder="Tên nhân viên">
-                    </div>
+
                     <div class="modal-footer">
                         <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
                         <button type="submit" class="btn btn-success">Thêm</button>
@@ -40,13 +39,13 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách nhân viên</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách địa điểm</h6>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themNhanVien">Thêm</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themDiaDiem">Thêm</button>
                 </p>
             </div>
             <div class="col-md-4">
@@ -66,47 +65,53 @@
                     <tr>
                         <th>
                             <a asp-route-searchString="@Model.SearchString">
-                                @Html.DisplayNameFor(model => model.NhanViens[0].MaNhanVien)
+                                @Html.DisplayNameFor(model => model.Tours[0].MaTour)
                             </a>
                         </th>
                         <th>
                             <a asp-route-searchString="@Model.SearchString">
-                                @Html.DisplayNameFor(model => model.NhanViens[0].TenNhanVien)
+                                @Html.DisplayNameFor(model => model.Tours[0].TenGoi)
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-route-searchString="@Model.SearchString">
+                                @Html.DisplayNameFor(model => model.Tours[0].DacDiem)
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-route-searchString="@Model.SearchString">
+                                @Html.DisplayNameFor(model => model.Tours[0].TenLoaiHinh)
                             </a>
                         </th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var nhanVien in Model.NhanViens)
+                    @foreach (var tour in Model.Tours)
                     {
-                        <tr>
-                            <td>@nhanVien.MaNhanVien</td>
-                            <td>@nhanVien.TenNhanVien</td>
-                            <td>
-                                <button class="btn btn-success" data-toggle="modal" data-target="#sua-@nhanVien.MaNhanVien" a><i class="far fa-edit"></i></button>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>@tour.MaTour</td>
+                        <td>@tour.TenGoi</td>
+                        <td>@tour.DacDiem</td>
+                        <td>@tour.TenLoaiHinh</td>
+                        <td>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@tour.MaTour" a><i class="far fa-edit"></i></button>
+                            <button class="btn btn-outline-dark" data-toggle="modal" data-target="#permission-@tour.MaTour" a><i class="fas fa-key"></i></button>
+                        </td>
+                    </tr>
                         //Sửa NV
-                        <div class="modal fade" id="sua-@nhanVien.MaNhanVien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="sua-@tour.MaTour" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật nhân viên</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật địa điểm</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="NhanVien">
-                                            <div class="form-group">
-                                                <label asp-for="@nhanVien.MaNhanVien">Mã nhân viên</label>
-                                                <input readonly="readonly" class="form-control" asp-for="@nhanVien.MaNhanVien" >
-                                            </div>
-                                            <div class="form-group">
-                                                <label asp-for="@nhanVien.TenNhanVien">Tên nhân viên</label>
-                                                <input class="form-control" asp-for="@nhanVien.TenNhanVien" placeholder="Tên nhân viên">
-                                            </div>
+                                        <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="DiaDiem">
+                                            
                                             <div class="modal-footer">
                                                 <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
                                                 <button type="submit" class="btn btn-success">Sửa</button>
@@ -123,14 +128,14 @@
     </div>
 </div>
 
-@{ var prevDisabled = !Model.NhanViens.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.NhanViens.HasNextPage ? "disabled" : ""; }
+@{ var prevDisabled = !Model.Tours.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Tours.HasNextPage ? "disabled" : ""; }
 
 <a class="btn btn-default @prevDisabled"
    asp-route-sortOrder="@Model.SortOrder"
    asp-route-searchString="@Model.SearchString"
-   asp-route-pageIndex="@(Model.NhanViens.PageIndex -1)">Trước</a>
+   asp-route-pageIndex="@(Model.Tours.PageIndex -1)">Trước</a>
 <a class="btn btn-default @nextDisabled"
    asp-route-sortOrder="@Model.SortOrder"
    asp-route-searchString="@Model.SearchString"
-   asp-route-pageIndex="@(Model.NhanViens.PageIndex +1)">Sau</a>
+   asp-route-pageIndex="@(Model.Tours.PageIndex +1)">Sau</a>

@@ -45,5 +45,15 @@ namespace Tour.Areas.Manager.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public IActionResult Update(NhanVienVM vm)
+        {
+            if (ModelState.IsValid)
+            {
+                nhanVienService.Update(vm.NhanVien);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
