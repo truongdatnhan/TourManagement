@@ -15,11 +15,13 @@ namespace Tour.Areas.Manager.Controllers
     {
         private readonly IDoanDuLichService doanDuLichService;
         private readonly ITourDuLichService tourDuLichService;
+        private readonly INoiDungTourService noiDungTourService;
 
-        public DoanDuLichController(IDoanDuLichService doanDuLichService,ITourDuLichService tourDuLichService)
+        public DoanDuLichController(IDoanDuLichService doanDuLichService,ITourDuLichService tourDuLichService,INoiDungTourService noiDungTourService)
         {
             this.doanDuLichService = doanDuLichService;
             this.tourDuLichService = tourDuLichService;
+            this.noiDungTourService = noiDungTourService;
         }
 
         public IActionResult Index(string sortOrder, string searchString, int pageIndex = 1)
@@ -54,6 +56,16 @@ namespace Tour.Areas.Manager.Controllers
             if (ModelState.IsValid)
             {
                 doanDuLichService.Update(vm.DoanDuLich);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult NoiDungTour(DoanDuLichVM vm)
+        {
+            if (ModelState.IsValid)
+            {
+                noiDungTourService.Create(vm.DoanDuLich.NoiDungTour);
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");

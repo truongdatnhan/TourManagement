@@ -8,7 +8,7 @@ namespace Domain.Interfaces
         int CountGiaTour();
 
         IEnumerable<GiaTour> GetGias();
-
+        
         IEnumerable<GiaTour> Filter(string sortOrder, string searchString, int pageIndex, int pageSize, out int count);
     }
 }

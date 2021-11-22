@@ -152,6 +152,7 @@ namespace Tour.Areas.Manager.Controllers
             if (ModelState.IsValid)
             {
                 chiTietDoanService.Create(vm.ChiTietDoan);
+                doanDuLichService.UpdateDoanhThu(vm.ChiTietDoan.MaDoan);
                 return RedirectToAction("Index", new { maDoan = vm.ChiTietDoan.MaDoan, list = "khachhang" });
             }
             return RedirectToAction("Index", "DoanDuLich");
@@ -162,6 +163,7 @@ namespace Tour.Areas.Manager.Controllers
             if (ModelState.IsValid)
             {
                 chiTietDoanService.Delete(vm.ChiTietDoan);
+                doanDuLichService.UpdateDoanhThu(vm.ChiTietDoan.MaDoan);
                 return RedirectToAction("Index", new { maDoan = vm.ChiTietDoan.MaDoan, list = "khachhang" });
             }
             return RedirectToAction("Index", "DoanDuLich");

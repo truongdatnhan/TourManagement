@@ -24,6 +24,10 @@ namespace Application.Services
 
         public bool Create(NoiDungTourDTO dto)
         {
+            if(noiDungTourRepository.GetBy(dto.MaDoan) != null)
+            {
+                return Update(dto);
+            }
             var ndt = mapper.Map<NoiDungTour>(dto);
             noiDungTourRepository.Add(ndt);
             return true;

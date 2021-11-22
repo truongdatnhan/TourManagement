@@ -1,34 +1,38 @@
 @using ThuVien.Areas.Manager.ViewModels
-@model TourDuLichVM
+@model GiaTourVM
 
-@{ ViewData["Title"] = "Danh sách tour";
+@{ ViewData["Title"] = "Danh sách giá tour";
 
  }
 
 
-<div class="modal fade" id="themTour" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="themGia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm tour</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Thêm giá</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
 
-            <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="TourDuLich">
+            <form method="POST" asp-area="Manager" asp-action="Create" asp-controller="GiaTour">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label asp-for="Tour.TenGoi">Tên tour</label>
-                        <input class="form-control" asp-for="Tour.TenGoi" placeholder="Tên tour">
+                        <label asp-for="GiaTour.MaTour">Mã Tour</label>
+                        <input readonly="readonly" class="form-control" asp-for="GiaTour.MaTour" value="@ViewBag.MaTour" placeholder="Mã tour"/>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Tour.DacDiem">Đặc điểm</label>
-                        <input class="form-control" asp-for="Tour.DacDiem" placeholder="Đặc điểm">
+                        <label asp-for="GiaTour.ThoiGianBatDau">Thời gian bắt đầu</label>
+                        <input class="form-control" asp-for="GiaTour.ThoiGianBatDau"/>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Tour.MaLoaiHinh">Loại hình</label>
-                        <select class="form-control" asp-for="Tour.MaLoaiHinh" asp-items="@(new SelectList(ViewBag.LoaiHinh, "MaLoaiHinh", "TenLoaiHinh"))"></select>
+                        <label asp-for="GiaTour.ThoiGianKetThuc">Thời gian kết thúc</label>
+                        <input class="form-control" asp-for="GiaTour.ThoiGianKetThuc" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GiaTour.ThanhTien">Thành tiền</label>
+                        <input class="form-control" asp-for="GiaTour.ThanhTien" />
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -43,13 +47,13 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách tour</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách giá</h6>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themTour">Thêm</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themGia">Thêm</button>
                 </p>
             </div>
             <div class="col-md-4">
@@ -69,67 +73,76 @@
                     <tr>
                         <th>
                             <a asp-route-searchString="@Model.SearchString">
-                                @Html.DisplayNameFor(model => model.Tours[0].MaTour)
+                                @Html.DisplayNameFor(model => model.GiaTours[0].MaGia)
                             </a>
                         </th>
                         <th>
                             <a asp-route-searchString="@Model.SearchString">
-                                @Html.DisplayNameFor(model => model.Tours[0].TenGoi)
+                                @Html.DisplayNameFor(model => model.GiaTours[0].MaTour)
                             </a>
                         </th>
                         <th>
                             <a asp-route-searchString="@Model.SearchString">
-                                @Html.DisplayNameFor(model => model.Tours[0].DacDiem)
+                                @Html.DisplayNameFor(model => model.GiaTours[0].ThoiGianBatDau)
                             </a>
                         </th>
                         <th>
                             <a asp-route-searchString="@Model.SearchString">
-                                @Html.DisplayNameFor(model => model.Tours[0].TenLoaiHinh)
+                                @Html.DisplayNameFor(model => model.GiaTours[0].ThoiGianKetThuc)
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-route-searchString="@Model.SearchString">
+                                @Html.DisplayNameFor(model => model.GiaTours[0].ThanhTien)
                             </a>
                         </th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var tour in Model.Tours)
+                    @foreach (var giaTour in Model.GiaTours)
                     {
                     <tr>
-                        <td>@tour.MaTour</td>
-                        <td>@tour.TenGoi</td>
-                        <td>@tour.DacDiem</td>
-                        <td>@tour.TenLoaiHinh</td>
+                        <td>@giaTour.MaGia</td>
+                        <td>@giaTour.MaTour</td>
+                        <td>@giaTour.ThoiGianBatDau</td>
+                        <td>@giaTour.ThoiGianKetThuc</td>
+                        <td>@giaTour.ThanhTien</td>
                         <td>
-                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@tour.MaTour" a><i class="far fa-edit"></i></button>
-                            <a class="btn btn-success" asp-area="Manager" asp-action="Index" asp-controller="GiaTour" asp-route-matour="@tour.MaTour"><i class="fas fa-dollar-sign"></i></a>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#sua-@giaTour.MaGia" a><i class="far fa-edit"></i></button>
                         </td>
                     </tr>
                         //Sửa NV
-                        <div class="modal fade" id="sua-@tour.MaTour" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="sua-@giaTour.MaGia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật tour</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật giá</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="TourDuLich">
+                                    <form method="POST" asp-area="Manager" asp-action="Update" asp-controller="GiaTour">
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <label asp-for="@tour.MaTour">Mã tour</label>
-                                                <input readonly="readonly" class="form-control" asp-for="@tour.MaTour" placeholder="Mã tour">
+                                                <label asp-for="@giaTour.MaGia">Mã giá</label>
+                                                <input readonly="readonly" class="form-control" asp-for="@giaTour.MaGia" placeholder="Mã giá" />
                                             </div>
                                             <div class="form-group">
-                                                <label asp-for="@tour.TenGoi">Tên tour</label>
-                                                <input class="form-control" asp-for="@tour.TenGoi" placeholder="Tên tour">
+                                                <label asp-for="@giaTour.MaTour">Mã tour</label>
+                                                <input readonly="readonly" class="form-control" asp-for="@giaTour.MaTour" placeholder="Mã tour" />
                                             </div>
                                             <div class="form-group">
-                                                <label asp-for="@tour.DacDiem">Đặc điểm</label>
-                                                <input class="form-control" asp-for="@tour.DacDiem" placeholder="Đặc điểm">
+                                                <label asp-for="@giaTour.ThoiGianBatDau">Thời gian bắt đầu</label>
+                                                <input class="form-control" asp-for="@giaTour.ThoiGianBatDau" />
                                             </div>
                                             <div class="form-group">
-                                                <label asp-for="@tour.MaLoaiHinh">Loại hình</label>
-                                                <select class="form-control" asp-for="@tour.MaLoaiHinh" asp-items="@(new SelectList(ViewBag.LoaiHinh, "MaLoaiHinh", "TenLoaiHinh"))"></select>
+                                                <label asp-for="@giaTour.ThoiGianKetThuc">Thời gian kết thúc</label>
+                                                <input class="form-control" asp-for="@giaTour.ThoiGianKetThuc" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@giaTour.ThanhTien">Thành tiền</label>
+                                                <input class="form-control" asp-for="@giaTour.ThanhTien" />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -147,14 +160,14 @@
     </div>
 </div>
 
-@{ var prevDisabled = !Model.Tours.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.Tours.HasNextPage ? "disabled" : ""; }
+@{ var prevDisabled = !Model.GiaTours.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.GiaTours.HasNextPage ? "disabled" : ""; }
 
 <a class="btn btn-default @prevDisabled"
    asp-route-sortOrder="@Model.SortOrder"
    asp-route-searchString="@Model.SearchString"
-   asp-route-pageIndex="@(Model.Tours.PageIndex -1)">Trước</a>
+   asp-route-pageIndex="@(Model.GiaTours.PageIndex -1)">Trước</a>
 <a class="btn btn-default @nextDisabled"
    asp-route-sortOrder="@Model.SortOrder"
    asp-route-searchString="@Model.SearchString"
-   asp-route-pageIndex="@(Model.Tours.PageIndex +1)">Sau</a>
+   asp-route-pageIndex="@(Model.GiaTours.PageIndex +1)">Sau</a>

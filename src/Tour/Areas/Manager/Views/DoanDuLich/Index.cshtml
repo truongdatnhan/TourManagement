@@ -115,6 +115,7 @@
                             <td>@doanDuLich.DoanhThu</td>
                             <td>
                                 <button class="btn btn-success" data-toggle="modal" data-target="#sua-@doanDuLich.MaDoan"><i class="far fa-edit"></i></button>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#ndt-@doanDuLich.MaDoan"><i class="fas fa-file-alt"></i></button>
                                 <a class="btn btn-success" asp-area="Manager" asp-action="Index" asp-controller="ChiTietDoan" asp-route-madoan="@doanDuLich.MaDoan" asp-route-list="khachhang"><i class="fas fa-users"></i></a>
                                 <a class="btn btn-success" asp-area="Manager" asp-action="Index" asp-controller="ChiTietDoan" asp-route-madoan="@doanDuLich.MaDoan" asp-route-list="nhanvien"><i class="fas fa-user-tie"></i></a>
                                 <a class="btn btn-success" asp-area="Manager" asp-action="Index" asp-controller="ChiTietDoan" asp-route-madoan="@doanDuLich.MaDoan" asp-route-list="chiphi"><i class="fas fa-dollar-sign"></i></a>
@@ -152,6 +153,43 @@
                                             <div class="form-group">
                                                 <label asp-for="@doanDuLich.NgayKetThuc">Ngày kết thúc</label>
                                                 <input class="form-control" asp-for="@doanDuLich.NgayKetThuc">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-success">Sửa</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        //NDT
+                        <div class="modal fade" id="ndt-@doanDuLich.MaDoan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật đoàn</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <form method="POST" asp-area="Manager" asp-action="NoiDungTour" asp-controller="DoanDuLich">
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label asp-for="@doanDuLich.NoiDungTour.MaDoan">Mã đoàn</label>
+                                                <input readonly="readonly" class="form-control" asp-for="@doanDuLich.NoiDungTour.MaDoan" value="@doanDuLich.MaDoan" placeholder="Mã đoàn">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@doanDuLich.NoiDungTour.HanhTrinh">Hành trình</label>
+                                                <input class="form-control" asp-for="@doanDuLich.NoiDungTour.HanhTrinh" placeholder="Hành trình">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@doanDuLich.NoiDungTour.KhachSan">Khách sạn</label>
+                                                <input class="form-control" asp-for="@doanDuLich.NoiDungTour.KhachSan" placeholder="Khách sạn">
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="@doanDuLich.NoiDungTour.DiaDiemThamQuan">Điểm tham quan</label>
+                                                <input class="form-control" asp-for="@doanDuLich.NoiDungTour.DiaDiemThamQuan">
                                             </div>
                                         </div>
                                         <div class="modal-footer">

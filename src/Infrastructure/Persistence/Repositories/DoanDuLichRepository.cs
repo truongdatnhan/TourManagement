@@ -141,5 +141,17 @@ namespace Infrastructure.Persistence.Repositories
             var c = context.DoanDuLiches.Count();
             return c;
         }
+
+        public void UpdateDoanhThu(int id)
+        {
+            var doan = context.DoanDuLiches.Find(id);
+
+            var giaTour = context.GiaTours.Where(x => (doan.MaTour == x.MaTour) && doan.NgayKhoiHanh >= x.ThoiGianBatDau &&
+            doan.NgayKhoiHanh <= x.ThoiGianKetThuc).Select(x => x).FirstOrDefault();
+
+            context.Entry(doan).Collection(kh => kh.Khaches).Load();
+            doan.DoanhThu = doan.Khaches.Count() * giaTour.ThanhTien;
+            context.SaveChanges();
+        }
     }
 }

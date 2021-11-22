@@ -73,6 +73,11 @@ namespace Application.Services
             return mapper.Map<IEnumerable<ChiPhiDTO>>(doanDuLichRepository.GetCPsByDoan(id));
         }
 
+        public void UpdateDoanhThu(int id)
+        {
+            doanDuLichRepository.UpdateDoanhThu(id);
+        }
+
         #endregion
 
         /*

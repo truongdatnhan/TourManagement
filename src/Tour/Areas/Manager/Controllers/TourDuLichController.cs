@@ -48,5 +48,15 @@ namespace Tour.Areas.Manager.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public IActionResult Update(TourDuLichVM vm)
+        {
+            if (ModelState.IsValid)
+            {
+                tourDuLichService.Update(vm.Tour);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
