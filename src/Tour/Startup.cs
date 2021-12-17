@@ -67,7 +67,7 @@ namespace ThuVien
 
             //DiemThamQuan
             services.AddScoped<IDiemThamQuanRepository, DiemThamQuanRepository>();
-            services.AddScoped<IDiaDiemService, DiaDiemService>();
+            services.AddScoped<IDiemThamQuanService, DiemThamQuanService>();
 
             //DoanDuLich
             services.AddScoped<IDoanDuLichRepository, DoanDuLichRepository>();

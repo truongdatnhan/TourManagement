@@ -55,5 +55,9 @@ namespace Application.Services
             return mapper.Map<IEnumerable<DiaDiemDTO>>(dds);
         }
 
+        public IEnumerable<DiaDiemDTO> GetDTOs()
+        {
+            return mapper.Map<IEnumerable<DiaDiemDTO>>(diaDiemRepository.GetAll());
+        }
     }
 }

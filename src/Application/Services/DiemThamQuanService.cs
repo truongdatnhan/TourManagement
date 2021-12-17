@@ -41,9 +41,9 @@ namespace Application.Services
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(DiemThamQuanDTO dto)
         {
-            var dtq = diemThamQuanRepository.GetBy(id);
+            var dtq = diemThamQuanRepository.GetBy(dto.MaDiaDiem,dto.MaTour);
             diemThamQuanRepository.Delete(dtq);
             return true;
         }

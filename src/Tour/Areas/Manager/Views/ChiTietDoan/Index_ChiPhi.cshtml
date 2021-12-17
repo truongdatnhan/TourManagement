@@ -90,7 +90,7 @@
                     <tr>
                         <td>@chiPhi.MaChiPhi</td>
                         <td>@chiPhi.TenLoaiChiPhi</td>
-                        <td>@chiPhi.SoTien</td>
+                        <td>@String.Format("{0:n0}", @chiPhi.SoTien)</td>
                         <td>
                             <button class="btn btn-success" data-toggle="modal" data-target="#sua-@chiPhi.MaChiPhi"><i class="far fa-edit"></i></button>
                         </td>

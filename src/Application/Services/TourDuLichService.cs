@@ -61,5 +61,10 @@ namespace Application.Services
             tours.Insert(0,new TourDuLich { MaTour = 0, TenGoi = "Chọn tour" });
             return mapper.Map<IEnumerable<TourDuLichDTO>>(tours);
         }
+
+        public IEnumerable<DiaDiemDTO> GetDiaDiemsByTour(int id)
+        {
+            return mapper.Map<IEnumerable<DiaDiemDTO>>(tourDuLichRepository.GetDiaDiemsByTour(id));
+        }
     }
 }

@@ -13,6 +13,6 @@ namespace Application.Interfaces
         bool Create(DiemThamQuanDTO dto);
         DiemThamQuanDTO Get(int id);
         bool Update(DiemThamQuanDTO dto);
-        bool Delete(int id);
+        bool Delete(DiemThamQuanDTO dto);
     }
 }

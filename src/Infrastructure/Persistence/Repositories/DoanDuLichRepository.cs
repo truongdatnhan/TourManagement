@@ -149,8 +149,10 @@ namespace Infrastructure.Persistence.Repositories
             var giaTour = context.GiaTours.Where(x => (doan.MaTour == x.MaTour) && doan.NgayKhoiHanh >= x.ThoiGianBatDau &&
             doan.NgayKhoiHanh <= x.ThoiGianKetThuc).Select(x => x).FirstOrDefault();
 
+            var chiPhi = context.ChiPhis.Where(x => x.MaDoan == id).Sum(x => x.SoTien);
+
             context.Entry(doan).Collection(kh => kh.Khaches).Load();
-            doan.DoanhThu = doan.Khaches.Count() * giaTour.ThanhTien;
+            doan.DoanhThu = (doan.Khaches.Count() * giaTour.ThanhTien) - chiPhi;
             context.SaveChanges();
         }
     }

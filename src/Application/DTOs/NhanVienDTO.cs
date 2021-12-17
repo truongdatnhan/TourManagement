@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,13 +6,14 @@ namespace Application.DTOs
 {
     public class NhanVienDTO
     {
-        [Display(Name = "Mã nhân viên")]
+        [Display(Name = "MÃ£ nhÃ¢n viÃªn")]
         public int MaNhanVien { get; set; }
 
-        [Display(Name = "Tên nhân viên")]
+        [Display(Name = "TÃªn nhÃ¢n viÃªn")]
         [Required]
         public string TenNhanVien { get; set; }
 
+        [Display(Name = "Nhiá»‡m vá»¥")]
         public string NhiemVu { get; set; }
     }
 }

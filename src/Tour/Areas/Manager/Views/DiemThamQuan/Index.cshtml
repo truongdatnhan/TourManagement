@@ -1,0 +1,141 @@
+﻿@using ThuVien.Areas.Manager.ViewModels
+@model DiemThamQuanVM
+
+@{ ViewData["Title"] = "Danh sách điểm tham quan tour";
+
+}
+
+<div class="modal fade" id="themDiaDiem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm địa điểm</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <form method="POST" asp-area="Manager" asp-action="Create_DD" asp-controller="DiemThamQuan">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="DiemThamQuan.MaTour">Mã tour</label>
+                        <input readonly="readonly" class="form-control" asp-for="DiemThamQuan.MaTour" value="@ViewBag.MaTour" placeholder="Mã tour">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DiemThamQuan.MaDiaDiem">Địa điểm</label>
+                        <select class="form-control" asp-for="DiemThamQuan.MaDiaDiem" asp-items="@(new SelectList(ViewBag.DiaDiem, "MaDiaDiem", "TenDiaDiem"))"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DiemThamQuan.ThuTu">Thứ tự</label>
+                        <input type="number" class="form-control" asp-for="DiemThamQuan.ThuTu">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách địa điểm</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <p>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#themDiaDiem">Thêm</button>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <form method="GET">
+                    <div class="input-group">
+                        <input class="form-control" type="text" asp-for="SearchString" />
+                        <div class="input-group-btn">
+                            <button class="btn btn-dark" type="submit">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-route-searchString="@Model.SearchString">
+                                @Html.DisplayNameFor(model => model.DiemThamQuans[0].MaDiaDiem)
+                            </a>
+                        </th>
+                        <th>
+                            <a>
+                                @Html.DisplayNameFor(model => model.DiemThamQuans[0].TenDiaDiem)
+                            </a>
+                        </th>
+                        <th>
+                            <a>
+                                @Html.DisplayNameFor(model => model.DiemThamQuans[0].ThuTu)
+                            </a>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+               @foreach (var diemThamQuan in Model.DiemThamQuans)
+                {
+                    <tr>
+                        <td>@diemThamQuan.MaDiaDiem</td>
+                        <td>@diemThamQuan.TenDiaDiem</td>
+                        <td>@diemThamQuan.ThuTu</td>
+                        <td>
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#xoa-@diemThamQuan.MaDiaDiem"><i class="far fa-edit"></i></button>
+                        </td>
+                    </tr>
+                    
+                        //Xoá
+                        <div class="modal fade" id="xoa-@diemThamQuan.MaDiaDiem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Xoá địa điểm</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <form method="POST" asp-area="Manager" asp-action="Delete_DD" asp-controller="DiemThamQuan">
+                                        <div class="modal-body">
+                                            <input type="hidden" class="form-control" asp-for="DiemThamQuan.MaTour" value="@ViewBag.MaTour">
+                                            <input type="hidden" class="form-control" asp-for="DiemThamQuan.MaDiaDiem" value="@diemThamQuan.MaDiaDiem">
+                                            <p>Bạn có chắc muốn xoá.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark" type="button" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-danger">Xoá</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@{ var prevDisabled = !Model.DiemThamQuans.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.DiemThamQuans.HasNextPage ? "disabled" : ""; }
+
+<a class="btn btn-default @prevDisabled"
+   asp-route-sortOrder="@Model.SortOrder"
+   asp-route-searchString="@Model.SearchString"
+   asp-route-pageIndex="@(Model.DiemThamQuans.PageIndex -1)">Trước</a>
+<a class="btn btn-default @nextDisabled"
+   asp-route-sortOrder="@Model.SortOrder"
+   asp-route-searchString="@Model.SearchString"
+   asp-route-pageIndex="@(Model.DiemThamQuans.PageIndex +1)">Sau</a>

@@ -28,6 +28,20 @@ namespace Infrastructure.Persistence.Repositories
             return list;
         }
 
+        public IEnumerable<DiaDiem> GetDiaDiemsByTour(int id)
+        {
+            var list = (from dtq in context.DiemThamQuans
+                        from dd in context.DiaDiems
+                        where dd.MaDiaDiem == dtq.MaDiaDiem && dtq.MaTour == id
+                        select new DiaDiem
+                        {
+                            MaDiaDiem = dd.MaDiaDiem,
+                            TenDiaDiem = dd.TenDiaDiem,
+                            ThuTu = dtq.ThuTu
+                        }).ToList();
+            return list;
+        }
+
         public IEnumerable<TourDuLich> GetTours()
         {
             List<TourDuLich> tour = new();
